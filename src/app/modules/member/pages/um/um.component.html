@@ -1,0 +1,101 @@
+<mat-drawer-container opened class="container">
+  <mat-drawer opened #drawer class="sidenav" mode="side">
+    <mat-list role="list">
+      <mat-list-item
+        *ngFor="let employee of employees"
+        class="list-item"
+        role="listitem"
+        [class.active]="isProfileActive(employee)"
+        (click)="selectEmployee(employee)"
+      >
+        <mat-icon
+          title="{{ employee.firstName }} {{ employee.lastName }}"
+          mat-list-icon
+          >person</mat-icon
+        >
+        <h4 title="{{ employee.firstName }} {{ employee.lastName }}" mat-line>
+          {{ employee.firstName }} {{ employee.lastName }}
+        </h4>
+        <button
+          (click)="deleteEmployee($event, employee)"
+          class="ml-8"
+          mat-icon-button
+          title="თანამშრომლის ამოშლა"
+        >
+          <mat-icon color="primary">delete</mat-icon>
+        </button></mat-list-item
+      >
+      <mat-divider></mat-divider>
+    </mat-list>
+  </mat-drawer>
+
+  <div class="sidenav-content">
+    <div class="toggle-btn-container">
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <br />
+      <button (click)="addEmployee()" class="greenBtn" mat-raised-button>
+        <mat-icon>add</mat-icon>
+        თანამშრომლის დამატება
+      </button>
+    </div>
+    <div class="page-container">
+      <mat-card *ngIf="employeeForm">
+        <h2 fxLayout="row" fxLayoutAlign="space-between center">
+          თანამშრომლის დამატება
+          <button (click)="close()" mat-icon-button>
+            <mat-icon>close</mat-icon>
+          </button>
+        </h2>
+        <form [formGroup]="employeeForm">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>სახელი</mat-label>
+            <input matInput formControlName="firstName" />
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>გვარი</mat-label>
+            <input matInput formControlName="lastName" />
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>პირადი ნომერი</mat-label>
+            <input type="number" matInput formControlName="pid" />
+          </mat-form-field>
+          <mat-card class="mb-20">
+            <section class="example-section" [formGroup]="employeeRoleControl">
+              <h4>თანამდებობა</h4>
+              <mat-checkbox formControlName="president"
+                >თავჯდომარე</mat-checkbox
+              >
+              <br />
+              <mat-checkbox formControlName="arbitr">არბიტრი</mat-checkbox>
+              <br />
+              <mat-checkbox formControlName="chancelleryMan"
+                >მიმღები</mat-checkbox
+              >
+            </section>
+          </mat-card>
+          <div>
+            <button
+              style="color: white"
+              (click)="save()"
+              mat-raised-button
+              class="green-btn"
+            >
+              შენახვა
+            </button>
+            <button
+              class="ml-8"
+              type="button"
+              (click)="close()"
+              mat-raised-button
+              color="warn"
+            >
+              გაუქმება
+            </button>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</mat-drawer-container>

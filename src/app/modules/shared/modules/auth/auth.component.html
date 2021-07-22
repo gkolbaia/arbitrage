@@ -1,0 +1,20 @@
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <div mat-card-header class="mb-20">
+      <div mat-card-title>Login</div>
+    </div>
+    <form (submit)="login()" [formGroup]="credentialsControl" mat-card-content>
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>User Name</mat-label>
+        <input formControlName="userName" type="text" matInput />
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input formControlName="password" type="password" matInput />
+      </mat-form-field>
+      <div mat-card-actions>
+        <button color="primary" mat-raised-button>Login</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

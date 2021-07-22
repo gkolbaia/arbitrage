@@ -1,0 +1,43 @@
+<h2 fxLayout="row" fxLayoutAlign="space-between center" mat-dialog-title>
+  თანამშრომლის დამატება
+  <button (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>
+</h2>
+<form [formGroup]="employeeForm">
+  <div mat-dialog-content>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>სახელი</mat-label>
+      <input matInput formControlName="firstName" />
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>გვარი</mat-label>
+      <input matInput formControlName="lastName" />
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>პირადი ნომერი</mat-label>
+      <input type="number" matInput formControlName="pid" />
+    </mat-form-field>
+    <mat-card>
+      <section class="example-section" [formGroup]="employeeRoleControl">
+        <h4>თანამდებობა</h4>
+        <mat-checkbox formControlName="president">თავჯდომარე</mat-checkbox>
+        <br>
+        <mat-checkbox formControlName="arbitr">არბიტრი</mat-checkbox>
+        <br>
+        <mat-checkbox formControlName="chancelleryMan">მიმღები</mat-checkbox>
+      </section>
+    </mat-card>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      style="color: white"
+      (click)="save()"
+      mat-raised-button
+      class="green-btn"
+    >
+      შენახვა
+    </button>
+    <button type="button" (click)="close()" mat-raised-button color="warn">
+      გაუქმება
+    </button>
+  </div>
+</form>

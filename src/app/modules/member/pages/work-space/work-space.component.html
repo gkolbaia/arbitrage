@@ -1,0 +1,24 @@
+<div class="work-space-wrapper">
+  <div class="search-container">
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input autocomplete="off" matInput />
+    </mat-form-field>
+  </div>
+  <div class="add-case-container mb-20">
+    <button (click)="addCase()" class="greenBtn" mat-raised-button>
+      <mat-icon>add</mat-icon>
+      საქმის დამატება
+    </button>
+  </div>
+  <div class="tab-container">
+    <mat-tab-group>
+      <mat-tab label="მიმდინარე">
+        <app-cases-table [dataSource]="dataSource"></app-cases-table>
+      </mat-tab>
+      <mat-tab label="დაწერილი"> Content 2 </mat-tab>
+      <mat-tab label="აქტიური"> Content 3 </mat-tab>
+      <mat-tab label="დასრულებული"> Content 3 </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

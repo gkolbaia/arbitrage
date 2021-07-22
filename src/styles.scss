@@ -1,1 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #fafafa;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+.ml-15 {
+  margin-left: 15px
+}
+
+.redBtn {
+  margin: 5px !important;
+  color: #FFFFFF;
+  background-color: #DB4437;
+}
+
+.orangeBtn {
+  margin: 5px !important;
+  color: #FFFFFF;
+  background-color: #FF8F1E;
+}
+
+.blueBtn {
+  margin: 5px !important;
+  color: #FFFFFF;
+  background-color: #3700d2;
+}
+
+.green-btn {
+  background-color: #00d269;
+
+  mat-icon {
+    color: white;
+  }
+}

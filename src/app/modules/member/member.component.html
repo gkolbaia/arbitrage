@@ -1,0 +1,23 @@
+<mat-toolbar
+  color="primary"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+>
+  <span>Arbitrage</span>
+  <div>
+    <a class="nav-buttons nav-links" routerLinkActive="active" [routerLink]="['um']"
+      >თანამშრომლების მართვა</a
+    >
+    <a class="nav-buttons nav-links" routerLinkActive="active" [routerLink]="['work']"
+      >საქმეები</a
+    >
+    <button
+      mat-icon-button
+      class="nav-buttons"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon>person</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>
