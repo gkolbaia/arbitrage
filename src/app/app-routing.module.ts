@@ -4,15 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/auth',
+    redirectTo: '/guest/case-registration',
     pathMatch: 'full',
-  },
-  {
-    path: 'auth',
-    loadChildren: () =>
-      import('./modules/shared/modules/auth/auth.module').then(
-        (m) => m.AuthModule
-      ),
   },
   {
     path: 'admin',

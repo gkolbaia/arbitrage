@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from '../shared/modules/material/material/material.module';
+import { MaterialModule } from '../shared/modules/material/material.module';
 import { MemberRoutingModule } from './member-routing.module';
 import { MemberComponent } from './member.component';
 import { UmComponent } from './pages/um/um.component';

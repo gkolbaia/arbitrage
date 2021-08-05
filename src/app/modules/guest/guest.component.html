@@ -1,1 +1,17 @@
-<p>guest works!</p>
+<mat-toolbar
+  color="primary"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+  class="nav-paddings"
+>
+  <span>Arbitrage</span>
+  <div>
+    <a
+      class="nav-buttons nav-links"
+      routerLinkActive="active"
+      [routerLink]="['auth']"
+      >ავტორიზაცია</a
+    >
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>
