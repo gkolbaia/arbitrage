@@ -1,1 +1,25 @@
-<p>case-registration works!</p>
+<div class="container">
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="საჩივრის ატვირთვა">
+      <mat-card class="card">
+        <div mat-card-header class="mb-20">
+          <div class="header" mat-card-title>საქმის დამატება</div>
+        </div>
+        <form mat-card-content>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>მომხმარებლის სახელი</mat-label>
+            <input type="text" matInput />
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>პაროლი</mat-label>
+            <input type="password" matInput />
+          </mat-form-field>
+          <div mat-card-actions>
+            <button color="primary" mat-raised-button>შესვლა</button>
+          </div>
+        </form>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="პასუხის ატვირთვა">Content 2</mat-tab>
+  </mat-tab-group>
+</div>

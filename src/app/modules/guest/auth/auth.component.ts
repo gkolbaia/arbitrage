@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -8,16 +10,33 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AuthComponent implements OnInit {
   credentialsControl: FormGroup;
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    private _authService: AuthService,
+    private router: Router
+  ) {
     this.credentialsControl = _fb.group({
-      userName: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {}
   login() {
-    console.log(this.credentialsControl.valid);
-    console.log(this.credentialsControl.value);
+    if (this.credentialsControl.invalid) {
+      return;
+    }
+    this._authService.login(this.credentialsControl.value).subscribe(
+      (res) => {
+        this._authService.session.subscribe((res) => {
+          console.log(res);
+        });
+        this.router.navigate(['/admin']);
+      },
+      (err) => {
+        //TODO handle error
+        console.log(err);
+      }
+    );
   }
 }
