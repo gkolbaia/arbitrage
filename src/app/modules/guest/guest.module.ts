@@ -7,6 +7,7 @@ import { MaterialModule } from '../shared/modules/material/material.module';
 import { CaseRegistrationComponent } from './case-registration/case-registration.component';
 import { AuthComponent } from './auth/auth.component';
 import { GuestComponent } from './guest.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [GuestComponent, CaseRegistrationComponent, AuthComponent],
@@ -16,6 +17,7 @@ import { GuestComponent } from './guest.component';
     MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
   exports: [GuestRoutingModule],
 })

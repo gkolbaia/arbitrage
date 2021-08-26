@@ -1,0 +1,53 @@
+<div>
+  <button
+    [style.border]="styles?.border"
+    type="button"
+    [disabled]="uploadProgressBar || disabled"
+    mat-raised-button
+    (click)="fileUploader.click()"
+  >
+    <mat-progress-bar
+      *ngIf="uploadProgressBar"
+      mode="indeterminate"
+    ></mat-progress-bar>
+    <span
+      [style.color]="styles?.color ? styles?.color : '#4696ec'"
+      style="margin-right: 7px"
+      >{{ name || "File Upload" }}
+    </span>
+    <mat-icon
+      [style.color]="styles?.color ? styles?.color : '#4696ec'"
+      *ngIf="icon"
+      >{{ icon }}</mat-icon
+    >
+  </button>
+  <button
+    type="button"
+    [disabled]="disableDownloadButton"
+    *ngIf="fileName && fileId"
+    style="margin-left: 15px"
+    class="ml-15"
+    mat-raised-button
+    (click)="downloadFile()"
+  >
+    {{ fileName }}
+    <mat-icon>download</mat-icon>
+  </button>
+  <button
+    type="button"
+    *ngIf="fileName && fileId && fileDelete"
+    style="margin-left: 15px"
+    class="ml-15"
+    mat-icon-button
+    color="warn"
+    (click)="fileDeleted()"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
+<input
+  style="display: none"
+  #fileUploader
+  type="file"
+  (change)="uploadFile($event)"
+/>

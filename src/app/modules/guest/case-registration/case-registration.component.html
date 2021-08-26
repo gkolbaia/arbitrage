@@ -6,16 +6,64 @@
           <div class="header" mat-card-title>საქმის დამატება</div>
         </div>
         <form mat-card-content>
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>მომხმარებლის სახელი</mat-label>
-            <input type="text" matInput />
-          </mat-form-field>
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>პაროლი</mat-label>
-            <input type="password" matInput />
-          </mat-form-field>
+          <div class="mb-20">
+            <mat-accordion>
+              <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                  <mat-panel-title> მოსარჩელე </mat-panel-title>
+                  <!-- <mat-panel-description>
+                    This is a summary of the content
+                  </mat-panel-description> -->
+                </mat-expansion-panel-header>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>სახელი</mat-label>
+                  <input type="text" matInput />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>გვარი</mat-label>
+                  <input type="text" matInput />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>პირადი ნომერი</mat-label>
+                  <input type="number" matInput />
+                </mat-form-field>
+                <div class="file-uploader">
+                  <app-file-uploader
+                    [fileDelete]="true"
+                    (fileUploaded)="fileUploaded($event)"
+                    (deletedFile)="deletedFile($event)"
+                    [validateFile]="['image/jpeg', 'image/png']"
+                  ></app-file-uploader>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+          <div class="mb-20">
+            <mat-accordion>
+              <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                  <mat-panel-title> მოპასუხე </mat-panel-title>
+                  <!-- <mat-panel-description>
+                    This is a summary of the content
+                  </mat-panel-description> -->
+                </mat-expansion-panel-header>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>სახელი</mat-label>
+                  <input type="text" matInput />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>გვარი</mat-label>
+                  <input type="password" matInput />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>გვარი</mat-label>
+                  <input type="password" matInput />
+                </mat-form-field>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
           <div mat-card-actions>
-            <button color="primary" mat-raised-button>შესვლა</button>
+            <button color="primary" mat-raised-button>ატვირთვა</button>
           </div>
         </form>
       </mat-card>

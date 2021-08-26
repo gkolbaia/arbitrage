@@ -1,12 +1,14 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from './guards/auth.guard';
 import { tokenInterceptor } from './interceptors/token.interceptor';
 import { MaterialModule } from './modules/material/material.module';
+import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
+import { CommonModule } from '@angular/common';
 @NgModule({
-  declarations: [],
-  imports: [MaterialModule],
-  exports: [MaterialModule],
+  declarations: [FileUploaderComponent],
+  imports: [CommonModule, MaterialModule, HttpClientModule],
+  exports: [MaterialModule, FileUploaderComponent],
   providers: [
     AuthGuard,
     {
