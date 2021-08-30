@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AnswerSheetComponent } from './answer-sheet/answer-sheet.component';
 import { AuthComponent } from './auth/auth.component';
 import { CaseRegistrationComponent } from './case-registration/case-registration.component';
 import { GuestComponent } from './guest.component';
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'auth',
         component: AuthComponent,
+      },
+      {
+        path: 'answer',
+        component: AnswerSheetComponent,
       },
     ],
   },

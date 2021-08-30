@@ -8,9 +8,11 @@ import { CaseRegistrationComponent } from './case-registration/case-registration
 import { AuthComponent } from './auth/auth.component';
 import { GuestComponent } from './guest.component';
 import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+import { AnswerSheetComponent } from './answer-sheet/answer-sheet.component';
 
 @NgModule({
-  declarations: [GuestComponent, CaseRegistrationComponent, AuthComponent],
+  declarations: [GuestComponent, CaseRegistrationComponent, AuthComponent, AnswerSheetComponent],
   imports: [
     CommonModule,
     GuestRoutingModule,
@@ -18,6 +20,7 @@ import { SharedModule } from '../shared/shared.module';
     FlexLayoutModule,
     ReactiveFormsModule,
     SharedModule,
+    HttpClientModule
   ],
   exports: [GuestRoutingModule],
 })
