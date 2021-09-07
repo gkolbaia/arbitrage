@@ -28,9 +28,11 @@ export class AuthComponent implements OnInit {
     }
     this._authService.login(this.credentialsControl.value).subscribe(
       (res) => {
+        console.log(res);
         this._authService.session.subscribe((res) => {
           console.log(res);
         });
+        localStorage.setItem('employee', JSON.stringify(res));
         this.router.navigate(['/admin']);
       },
       (err) => {

@@ -18,4 +18,9 @@ export class CaseService {
   setCase(data: any) {
     this.case.next(data);
   }
+  getCase(caseNumber: string) {
+    return this._http
+      .get(`api/case/${caseNumber}`)
+      .pipe(map((res: any) => res.result.data));
+  }
 }

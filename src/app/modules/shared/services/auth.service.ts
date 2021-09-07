@@ -23,7 +23,6 @@ export class AuthService {
     return this._http.get('/api/auth/user');
   }
   private checkLogin(body: any): boolean {
-    console.log(body);
     if (body && body._id) {
       return true;
     } else {

@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
-import { AddEmployeeDialogComponent } from './dialogs/add-employee-dialog/add-employee-dialog.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-um',
@@ -9,70 +16,96 @@ import { AddEmployeeDialogComponent } from './dialogs/add-employee-dialog/add-em
   styleUrls: ['./um.component.scss'],
 })
 export class UmComponent implements OnInit {
-  employeeForm?: FormGroup | null;
+  userForm?: FormGroup | null;
 
-  employees: any = [
+  users: any = [
     {
       id: 1,
       firstName: 'გიორგი',
       lastName: 'ყოლბაია',
       pid: 62006064772,
-      employeeRole: { chancelleryMan: false, arbitr: true, president: false },
+      roles: ['ARBITR'],
     },
     {
       id: 2,
       firstName: 'გიორგი',
       lastName: 'წულუკიძე',
       pid: 62006064772,
-      employeeRole: { chancelleryMan: true, arbitr: false, president: false },
+      roles: ['PRESIDENT'],
     },
     {
       id: 3,
       firstName: 'მარშალ',
       lastName: 'გელოვანი',
       pid: 62006064772,
-      employeeRole: { chancelleryMan: false, arbitr: false, president: true },
+      roles: ['SUPERADMIN'],
     },
   ];
-  constructor(private _dialog: MatDialog, private _fb: FormBuilder) {}
+  constructor(
+    private _dialog: MatDialog,
+    private _fb: FormBuilder,
+    private _userService: UserService
+  ) {}
   ngOnInit(): void {}
-  selectEmployee(employee: any) {
-    this.generatEemployeeForm(employee);
+  selectUser(user: any) {
+    this.generatUserForm(user);
   }
-  isProfileActive(employee: any) {
-    return employee.id === this.employeeForm?.value.id;
+  isProfileActive(user: any) {
+    return user.id === this.userForm?.value.id;
   }
-  deleteEmployee(e: any, employee: any) {
+  deleteUser(e: any, user: any) {
     e.stopPropagation();
   }
-  addEmployee() {
-    if (!this.employeeForm) this.generatEemployeeForm();
-    // const dialog = this._dialog.open(AddEmployeeDialogComponent, {
-    //   width: '100%',
-    //   autoFocus: false,
-    //   disableClose: true,
-    // });
+  addUser() {
+    if (!this.userForm) this.generatUserForm();
   }
   close() {
-    this.employeeForm = null;
+    this.userForm = null;
   }
   save() {
-    console.log(this.employeeForm?.value);
-  }
-  get employeeRoleControl(): FormGroup {
-    return this.employeeForm?.controls.employeeRole as FormGroup;
-  }
-  generatEemployeeForm(employee?: any) {
-    this.employeeForm = this._fb.group({
-      id: [employee?.id || null],
-      firstName: [employee?.firstName || '', Validators.required],
-      lastName: [employee?.lastName || '', Validators.required],
-      pid: [employee?.pid || null, Validators.required],
-      employeeRole: this._fb.group({
-        president: employee?.employeeRole?.president || false,
-        arbitr: employee?.employeeRole?.arbitr || false,
-        chancelleryMan: employee?.employeeRole?.chancelleryMan || false,
-      }),
+    this._userService.registrateUser(this.userForm?.value).subscribe((res) => {
+      console.log(res);
     });
+    console.log(this.userForm?.value);
+  }
+  get userRolesControl(): FormArray {
+    return this.userForm?.controls.roles as FormArray;
+  }
+  generatUserForm(user?: any) {
+    this.userForm = this._fb.group({
+      id: [user?.id || null],
+      firstName: [user?.firstName || '', Validators.required],
+      username: [user?.username || '', Validators.required],
+      lastName: [user?.lastName || '', Validators.required],
+      pid: [user?.pid || null, Validators.required],
+      // roles: this._fb.group({
+      //   president: user?.role?.president || false,
+      //   arbitr: user?.role?.arbitr || false,
+      //   chancelleryMan: user?.role?.chancelleryMan || false,
+      // }),
+      roles: this._fb.array([]),
+    });
+    if (user?.roles?.length) {
+      user.roles.forEach((role: string) => {
+        this.userRolesControl.push(new FormControl(role));
+      });
+    }
+  }
+  roleChecked(role: string) {
+    const neededRole = this.userRolesControl.value.find(
+      (userRole: string) => userRole === role
+    );
+    return !!neededRole;
+  }
+  checkRole(e: MatCheckboxChange, role: string) {
+    if (e.checked) {
+      this.userRolesControl.push(new FormControl(role));
+    } else {
+      this.userRolesControl.value.forEach((userRole: string, i: number) => {
+        if (userRole === role) {
+          this.userRolesControl.removeAt(i);
+        }
+      });
+    }
   }
 }

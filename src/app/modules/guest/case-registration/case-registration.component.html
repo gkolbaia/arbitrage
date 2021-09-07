@@ -1,254 +1,39 @@
 <div class="container">
   <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="პასუხის ატვირთვა">
+      <form>
+        <div class="mt-10 p-20">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>საქმის ნომერი</mat-label>
+            <input
+              [formControl]="caseIdControl"
+              type="text"
+              matInput
+              autocomplete="off"
+            />
+          </mat-form-field>
+          <button
+            (click)="findCase()"
+            color="primary"
+            type="button"
+            mat-raised-button
+          >
+            მოძებნა
+          </button>
+          <div *ngIf="case">
+            <hr />
+            <app-report-form [case]="case"></app-report-form>
+          </div>
+        </div>
+      </form>
+    </mat-tab>
     <mat-tab label="საჩივრის ატვირთვა">
       <mat-card class="card">
         <div mat-card-header class="mb-20">
           <div class="header" mat-card-title>საქმის დამატება</div>
         </div>
-        <form mat-card-content [formGroup]="reportControl">
-          <!-- REPORTER -->
-          <div class="mb-20">
-            <mat-accordion>
-              <mat-expansion-panel [formGroup]="reporterControl" expanded>
-                <mat-expansion-panel-header>
-                  <mat-panel-title> მოსარჩელე </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="mb-20 mt-10">
-                  <mat-radio-group [formControl]="reporterTypeControl">
-                    <mat-radio-button value="person"
-                      >ფიზიკური პირი</mat-radio-button
-                    >
-                    <mat-radio-button value="company"
-                      >იურიდიული პირი</mat-radio-button
-                    >
-                  </mat-radio-group>
-                </div>
-                <hr />
-                <!-- ORGANISATION ID -->
-                <mat-form-field
-                  *ngIf="reporterTypeControl.value === 'company'"
-                  class="w-100"
-                  appearance="outline"
-                >
-                  <mat-label>ორგანიზაციის ნომერი</mat-label>
-                  <input
-                    formControlName="organisationId"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- ORGANISATION NAME -->
-                <mat-form-field
-                  *ngIf="reporterTypeControl.value === 'company'"
-                  class="w-100"
-                  appearance="outline"
-                >
-                  <mat-label>ორგანიზაციის სახელი</mat-label>
-                  <input
-                    formControlName="organisationName"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- FIRSTNAME  -->
-                <mat-form-field
-                  *ngIf="reporterTypeControl.value === 'person'"
-                  class="w-100"
-                  appearance="outline"
-                >
-                  <mat-label>სახელი</mat-label>
-                  <input
-                    formControlName="firstName"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- LASTNAME -->
-                <mat-form-field
-                  class="w-100"
-                  appearance="outline"
-                  *ngIf="reporterTypeControl.value === 'person'"
-                >
-                  <mat-label>გვარი</mat-label>
-                  <input
-                    formControlName="lastName"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- PID -->
-                <mat-form-field
-                  class="w-100"
-                  appearance="outline"
-                  *ngIf="reporterTypeControl.value === 'person'"
-                >
-                  <mat-label>პირადი ნომერი</mat-label>
-                  <input
-                    formControlName="pid"
-                    type="number"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- EMAIL -->
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>მეილი</mat-label>
-                  <input
-                    formControlName="email"
-                    type="email"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- PHONE -->
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>ტელეფონი სნომერი</mat-label>
-                  <input
-                    formControlName="phone"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <div class="file-uploader">
-                  <app-file-uploader
-                    [fileDelete]="true"
-                    (fileUploaded)="fileUploaded($event)"
-                    (deletedFile)="deletedFile($event)"
-                    [validateFile]="['image/jpeg', 'image/png']"
-                  ></app-file-uploader>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div>
-          <!-- DEFENDANT -->
-          <div class="mb-20">
-            <mat-accordion>
-              <mat-expansion-panel expanded [formGroup]="defendantControl">
-                <mat-expansion-panel-header>
-                  <mat-panel-title> მოპასუხე </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="mb-20 mt-10">
-                  <mat-radio-group [formControl]="defendantTypeControl">
-                    <mat-radio-button value="person"
-                      >ფიზიკური პირი</mat-radio-button
-                    >
-                    <mat-radio-button value="company"
-                      >იურიდიული პირი</mat-radio-button
-                    >
-                  </mat-radio-group>
-                </div>
-                <hr />
-                <!-- ORGANISATION ID -->
-                <mat-form-field
-                  *ngIf="defendantTypeControl.value === 'company'"
-                  class="w-100"
-                  appearance="outline"
-                >
-                  <mat-label>ორგანიზაციის ნომერი</mat-label>
-                  <input
-                    formControlName="organisationId"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- ORGANISATION NAME -->
-                <mat-form-field
-                  *ngIf="defendantTypeControl.value === 'company'"
-                  class="w-100"
-                  appearance="outline"
-                >
-                  <mat-label>ორგანიზაციის სახელი</mat-label>
-                  <input
-                    formControlName="organisationName"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- FIRSTNAME  -->
-                <mat-form-field
-                  *ngIf="defendantTypeControl.value === 'person'"
-                  class="w-100"
-                  appearance="outline"
-                >
-                  <mat-label>სახელი</mat-label>
-                  <input
-                    formControlName="firstName"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- LASTNAME -->
-                <mat-form-field
-                  class="w-100"
-                  appearance="outline"
-                  *ngIf="defendantTypeControl.value === 'person'"
-                >
-                  <mat-label>გვარი</mat-label>
-                  <input
-                    formControlName="lastName"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- PID -->
-                <mat-form-field
-                  class="w-100"
-                  appearance="outline"
-                  *ngIf="defendantTypeControl.value === 'person'"
-                >
-                  <mat-label>პირადი ნომერი</mat-label>
-                  <input
-                    formControlName="pid"
-                    type="number"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- EMAIL -->
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>მეილი</mat-label>
-                  <input
-                    formControlName="email"
-                    type="email"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-                <!-- PHONE -->
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>ტელეფონი სნომერი</mat-label>
-                  <input
-                    formControlName="phone"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div>
-          <div mat-card-actions>
-            <button
-              (click)="saveCase()"
-              type="button"
-              color="primary"
-              mat-raised-button
-            >
-              ატვირთვა
-            </button>
-          </div>
-        </form>
+        <app-report-form></app-report-form>
       </mat-card>
     </mat-tab>
-    <mat-tab label="პასუხის ატვირთვა">Content 2</mat-tab>
   </mat-tab-group>
 </div>

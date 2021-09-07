@@ -26,6 +26,9 @@ body {
 .mr-15 {
   margin-right: 15px;
 }
+.p-20 {
+  padding: 0 10px;
+}
 .redBtn {
   margin: 5px !important;
   color: #FFFFFF;
@@ -50,4 +53,7 @@ body {
   mat-icon {
     color: white;
   }
+}
+.mat-radio-button~.mat-radio-button {
+  margin-left: 16px;
 }

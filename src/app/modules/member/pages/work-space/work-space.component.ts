@@ -16,12 +16,18 @@ export class WorkSpaceComponent implements OnInit {
   ];
   constructor(private _dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.Employee);
+  }
   addCase() {
     const dialog = this._dialog.open(AddCaseDialogComponent, {
       width: '100%',
       autoFocus: false,
       disableClose: true,
     });
+  }
+  get Employee() {
+    const employee = localStorage.getItem('employee');
+    return employee ? JSON.parse(employee) : null;
   }
 }

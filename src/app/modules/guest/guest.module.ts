@@ -10,9 +10,10 @@ import { GuestComponent } from './guest.component';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AnswerSheetComponent } from './answer-sheet/answer-sheet.component';
+import { ReportFormComponent } from './case-registration/components/report-form/report-form.component';
 
 @NgModule({
-  declarations: [GuestComponent, CaseRegistrationComponent, AuthComponent, AnswerSheetComponent],
+  declarations: [GuestComponent, CaseRegistrationComponent, AuthComponent, AnswerSheetComponent, ReportFormComponent],
   imports: [
     CommonModule,
     GuestRoutingModule,

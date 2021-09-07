@@ -10,15 +10,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { WorkSpaceComponent } from './pages/work-space/work-space.component';
 import { CasesTableComponent } from './pages/work-space/components/cases-table/cases-table.component';
 import { AddCaseDialogComponent } from './pages/work-space/components/add-case-dialog/add-case-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [UmComponent, MemberComponent, AddEmployeeDialogComponent, WorkSpaceComponent, CasesTableComponent, AddCaseDialogComponent],
+  declarations: [
+    UmComponent,
+    MemberComponent,
+    AddEmployeeDialogComponent,
+    WorkSpaceComponent,
+    CasesTableComponent,
+    AddCaseDialogComponent,
+  ],
   imports: [
     MemberRoutingModule,
     MaterialModule,
     FlexLayoutModule,
     CommonModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
 })
 export class MemberModule {}
