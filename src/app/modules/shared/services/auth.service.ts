@@ -19,12 +19,29 @@ export class AuthService {
       catchError(() => of(false))
     );
   }
+  get isSuperAdmin(): Observable<boolean> {
+    return this.session.pipe(
+      map(this.checkSuperAdmin),
+      catchError(() => of(false))
+    );
+  }
   get session() {
     return this._http.get('/api/auth/user');
   }
   private checkLogin(body: any): boolean {
     if (body && body._id) {
       return true;
+    } else {
+      return false;
+    }
+  }
+  private checkSuperAdmin(body: any): boolean {
+    if (body?.roles?.length) {
+      const superAdmin = body.roles.find(
+        (role: string) => role === 'SUPERADMIN'
+      );
+      console.log('sada', body.roles, superAdmin);
+      return superAdmin ? true : false;
     } else {
       return false;
     }

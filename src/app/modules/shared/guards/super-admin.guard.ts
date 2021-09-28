@@ -2,30 +2,37 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
-  CanActivateChild,
   Router,
   RouterStateSnapshot,
+  UrlTree,
 } from '@angular/router';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 
-@Injectable()
-export class AuthGuard implements CanActivate, CanActivateChild {
+@Injectable({
+  providedIn: 'root',
+})
+export class SuperAdminGuard implements CanActivate {
   constructor(private _authService: AuthService, private _router: Router) {}
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
     const url: string = state.url;
-    return this.checkLogin(url);
+    return this.checkSuperAdmin(url);
   }
-  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.canActivate(route, state);
-  }
-  checkLogin(url: string) {
-    return this._authService.isLoggedIn.pipe(
+  checkSuperAdmin(url: string) {
+    return this._authService.isSuperAdmin.pipe(
       tap((isLoggedIn) => {
         if (isLoggedIn) {
           return;
         }
+        // should navigate to forbidden route
         this._router.navigate(['/guest/auth']);
       })
     );

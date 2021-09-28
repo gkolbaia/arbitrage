@@ -11,7 +11,6 @@ export class AnswerSheetComponent implements OnInit {
   case: any;
   ngOnInit(): void {
     this._caseService.case.subscribe((res) => {
-      console.log('egaa', res);
       this.case = res;
     });
   }
