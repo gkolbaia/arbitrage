@@ -17,7 +17,6 @@ export class WorkSpaceComponent implements OnInit {
   constructor(private _dialog: MatDialog) {}
 
   ngOnInit(): void {
-    console.log(this.Employee);
   }
   addCase() {
     const dialog = this._dialog.open(AddCaseDialogComponent, {

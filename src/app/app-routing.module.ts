@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ForbiddenComponent } from './modules/shared/components/forbidden/forbidden.component';
 import { AuthGuard } from './modules/shared/guards/auth.guard';
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
     path: 'guest',
     loadChildren: () =>
       import('./modules/guest/guest.module').then((m) => m.GuestModule),
+  },
+  {
+    path: 'forbidden',
+    component: ForbiddenComponent,
   },
 ];
 

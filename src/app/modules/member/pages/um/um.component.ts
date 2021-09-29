@@ -8,6 +8,9 @@ import {
 } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { LoadingService } from 'src/app/modules/shared/services/loading.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -18,43 +21,45 @@ import { UserService } from '../../services/user.service';
 export class UmComponent implements OnInit {
   userForm?: FormGroup | null;
 
-  users: any = [
-    {
-      id: 1,
-      firstName: 'გიორგი',
-      lastName: 'ყოლბაია',
-      pid: 62006064772,
-      roles: ['ARBITR'],
-    },
-    {
-      id: 2,
-      firstName: 'გიორგი',
-      lastName: 'წულუკიძე',
-      pid: 62006064772,
-      roles: ['PRESIDENT'],
-    },
-    {
-      id: 3,
-      firstName: 'მარშალ',
-      lastName: 'გელოვანი',
-      pid: 62006064772,
-      roles: ['SUPERADMIN'],
-    },
-  ];
+  users: any;
   constructor(
     private _dialog: MatDialog,
     private _fb: FormBuilder,
-    private _userService: UserService
+    private _userService: UserService,
+    private _snackBar: MatSnackBar,
+    private _loadingService: LoadingService
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadData();
+  }
   selectUser(user: any) {
     this.generatUserForm(user);
   }
   isProfileActive(user: any) {
-    return user.id === this.userForm?.value.id;
+    return user._id === this.userForm?.value._id;
   }
   deleteUser(e: any, user: any) {
     e.stopPropagation();
+    const dialog = this._dialog.open(ConfirmationDialogComponent);
+    dialog.afterClosed().subscribe((res) => {
+      if (res) {
+        this._userService.deleteUser(user._id).subscribe(
+          (res) => {
+            this.loadData();
+            this._snackBar.open('მონაცემი წაიშალა', 'ok', {
+              duration: 10000,
+              panelClass: 'message-warn',
+            });
+          },
+          (err) => {
+            this._snackBar.open(err.message, 'ok', {
+              duration: 10000,
+              panelClass: 'err-message',
+            });
+          }
+        );
+      }
+    });
   }
   addUser() {
     if (!this.userForm) this.generatUserForm();
@@ -64,26 +69,27 @@ export class UmComponent implements OnInit {
   }
   save() {
     this._userService.registrateUser(this.userForm?.value).subscribe((res) => {
-      console.log(res);
+      this.userForm = null;
+      this.loadData();
+      this._snackBar.open('თანამშრომელი დამატებულია', 'ok', {
+        duration: 2000,
+        panelClass: 'success-message',
+      });
     });
-    console.log(this.userForm?.value);
   }
   get userRolesControl(): FormArray {
     return this.userForm?.controls.roles as FormArray;
   }
   generatUserForm(user?: any) {
     this.userForm = this._fb.group({
-      id: [user?.id || null],
+      _id: [user?._id || null],
       firstName: [user?.firstName || '', Validators.required],
       username: [user?.username || '', Validators.required],
       lastName: [user?.lastName || '', Validators.required],
       pid: [user?.pid || null, Validators.required],
-      // roles: this._fb.group({
-      //   president: user?.role?.president || false,
-      //   arbitr: user?.role?.arbitr || false,
-      //   chancelleryMan: user?.role?.chancelleryMan || false,
-      // }),
       roles: this._fb.array([]),
+      type: [user?.type || null],
+      userId: [user?.userId || null],
     });
     if (user?.roles?.length) {
       user.roles.forEach((role: string) => {
@@ -107,5 +113,35 @@ export class UmComponent implements OnInit {
         }
       });
     }
+  }
+  loadData() {
+    this._userService.getUsers().subscribe((res: any) => {
+      this.users = res?.result?.data;
+    });
+  }
+  resetPassword() {
+    const dialog = this._dialog.open(ConfirmationDialogComponent);
+    dialog.afterClosed().subscribe((res) => {
+      if (res) {
+        this._userService.resetPassword(this.userForm?.value?._id).subscribe(
+          (res) => {
+            this._snackBar.open(
+              'მომხმარებლის პაროლი წარმატებით დარესეტდა',
+              'ok',
+              {
+                duration: 10000,
+                panelClass: 'message-warn',
+              }
+            );
+          },
+          (err) => {
+            this._snackBar.open(err.message, 'ok', {
+              duration: 10000,
+              panelClass: 'err-message',
+            });
+          }
+        );
+      }
+    });
   }
 }

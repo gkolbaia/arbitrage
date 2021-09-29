@@ -1,4 +1,4 @@
-<mat-drawer-container opened class="container">
+<mat-drawer-container opened class="container" *ngIf="users?.length">
   <mat-drawer opened #drawer class="sidenav" mode="side">
     <mat-list role="list">
       <mat-list-item
@@ -41,7 +41,8 @@
     <div class="page-container">
       <mat-card *ngIf="userForm">
         <h2 fxLayout="row" fxLayoutAlign="space-between center">
-          თანამშრომლის დამატება
+          თანამშრომლის {{ userForm?.value?._id ? "რედაქტირება" : "დამატება" }}
+
           <button (click)="close()" mat-icon-button>
             <mat-icon>close</mat-icon>
           </button>
@@ -86,24 +87,37 @@
               >
             </section>
           </mat-card>
-          <div>
-            <button
-              style="color: white"
-              (click)="save()"
-              mat-raised-button
-              class="green-btn"
-            >
-              შენახვა
-            </button>
-            <button
-              class="ml-8"
-              type="button"
-              (click)="close()"
-              mat-raised-button
-              color="warn"
-            >
-              გაუქმება
-            </button>
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <button
+                style="color: white"
+                (click)="save()"
+                mat-raised-button
+                class="green-btn"
+              >
+                შენახვა
+              </button>
+              <button
+                class="ml-8"
+                type="button"
+                (click)="close()"
+                mat-raised-button
+                color="warn"
+              >
+                გაუქმება
+              </button>
+            </div>
+            <div *ngIf="userForm?.value?._id">
+              <button
+                class="ml-8"
+                type="button"
+                (click)="resetPassword()"
+                mat-raised-button
+                color="warn"
+              >
+                პაროლის დარესეტება
+              </button>
+            </div>
           </div>
         </form>
       </mat-card>

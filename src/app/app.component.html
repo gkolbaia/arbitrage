@@ -1,1 +1,10 @@
-<router-outlet></router-outlet>
+<router-outlet>
+  <ngx-loading
+    [show]="loading"
+    [config]="{
+      animationType: ngxLoadingAnimationTypes.wanderingCubes,
+      fullScreenBackdrop: true
+    }"
+  >
+  </ngx-loading>
+</router-outlet>

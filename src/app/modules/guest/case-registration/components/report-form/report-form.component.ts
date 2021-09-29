@@ -56,7 +56,7 @@ export class ReportFormComponent implements OnInit {
     return this.reportControl.controls.reportFiles as FormArray;
   }
   ngOnInit(): void {
-    console.log('case', this.case);
+    // console.log('case', this.case);
   }
   fileUploaded(file: any) {
     if (file?.filename) {
@@ -72,7 +72,7 @@ export class ReportFormComponent implements OnInit {
       this._caseService
         .createCase(this.reportControl.value)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
           this._caseService.setCase(res);
           this._router.navigate(['guest/answer']);
         });

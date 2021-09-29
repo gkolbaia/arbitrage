@@ -40,7 +40,6 @@ export class AuthService {
       const superAdmin = body.roles.find(
         (role: string) => role === 'SUPERADMIN'
       );
-      console.log('sada', body.roles, superAdmin);
       return superAdmin ? true : false;
     } else {
       return false;

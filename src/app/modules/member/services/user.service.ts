@@ -9,4 +9,13 @@ export class UserService {
   registrateUser(user: any) {
     return this._http.post('api/user', { data: user });
   }
+  getUsers() {
+    return this._http.post('api/user/find', {});
+  }
+  deleteUser(id: string) {
+    return this._http.delete(`api/user/${id}`);
+  }
+  resetPassword(id: string) {
+    return this._http.patch(`api/user/${id}/password`, {});
+  }
 }
