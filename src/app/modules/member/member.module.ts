@@ -11,6 +11,8 @@ import { WorkSpaceComponent } from './pages/work-space/work-space.component';
 import { CasesTableComponent } from './pages/work-space/components/cases-table/cases-table.component';
 import { AddCaseDialogComponent } from './pages/work-space/components/add-case-dialog/add-case-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { ChangePasswordDialogComponent } from './pages/user-profile/dialogs/change-password-dialog/change-password-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     WorkSpaceComponent,
     CasesTableComponent,
     AddCaseDialogComponent,
+    UserProfileComponent,
+    ChangePasswordDialogComponent,
   ],
   imports: [
     MemberRoutingModule,

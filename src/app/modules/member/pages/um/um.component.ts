@@ -38,14 +38,15 @@ export class UmComponent implements OnInit {
   isProfileActive(user: any) {
     return user._id === this.userForm?.value._id;
   }
-  deleteUser(e: any, user: any) {
+  deleteUser(e: any) {
     e.stopPropagation();
     const dialog = this._dialog.open(ConfirmationDialogComponent);
     dialog.afterClosed().subscribe((res) => {
       if (res) {
-        this._userService.deleteUser(user._id).subscribe(
+        this._userService.deleteUser(this.userForm?.value?._id).subscribe(
           (res) => {
             this.loadData();
+            this.userForm = null;
             this._snackBar.open('მონაცემი წაიშალა', 'ok', {
               duration: 10000,
               panelClass: 'message-warn',
@@ -68,14 +69,18 @@ export class UmComponent implements OnInit {
     this.userForm = null;
   }
   save() {
-    this._userService.registrateUser(this.userForm?.value).subscribe((res) => {
-      this.userForm = null;
-      this.loadData();
-      this._snackBar.open('თანამშრომელი დამატებულია', 'ok', {
-        duration: 2000,
-        panelClass: 'success-message',
-      });
-    });
+    if (this.userForm?.valid) {
+      this._userService
+        .registrateUser(this.userForm?.value)
+        .subscribe((res) => {
+          this.userForm = null;
+          this.loadData();
+          this._snackBar.open('თანამშრომელი დამატებულია', 'ok', {
+            duration: 2000,
+            panelClass: 'success-message',
+          });
+        });
+    }
   }
   get userRolesControl(): FormArray {
     return this.userForm?.controls.roles as FormArray;

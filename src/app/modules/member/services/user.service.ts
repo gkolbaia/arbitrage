@@ -18,4 +18,7 @@ export class UserService {
   resetPassword(id: string) {
     return this._http.patch(`api/user/${id}/password`, {});
   }
+  changePassword(data: { password: string; newPassword: string }) {
+    return this._http.patch(`api/user/password`, { data });
+  }
 }

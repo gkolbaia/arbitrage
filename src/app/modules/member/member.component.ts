@@ -11,4 +11,5 @@ export class MemberComponent implements OnInit {
   ngOnInit(): void {
     const user = localStorage.getItem('');
   }
+  logOut() {}
 }

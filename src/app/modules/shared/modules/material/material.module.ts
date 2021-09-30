@@ -20,6 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 @NgModule({
   imports: [
     MatButtonModule,
@@ -43,6 +44,7 @@ import { MatListModule } from '@angular/material/list';
     MatPaginatorModule,
     MatToolbarModule,
     MatListModule,
+    MatMenuModule,
   ],
   exports: [
     MatButtonModule,
@@ -66,6 +68,7 @@ import { MatListModule } from '@angular/material/list';
     MatPaginatorModule,
     MatToolbarModule,
     MatListModule,
+    MatMenuModule,
   ],
 })
 export class MaterialModule {}

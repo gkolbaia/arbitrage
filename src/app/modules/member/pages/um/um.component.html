@@ -14,15 +14,15 @@
         <h4 title="{{ user.firstName }} {{ user.lastName }}" mat-line>
           {{ user.firstName }} {{ user.lastName }}
         </h4>
-        <button
-          (click)="deleteUser($event, user)"
+        <!-- <button
+          (click)="deleteUser($event)"
           class="ml-8"
           mat-icon-button
           title="თანამშრომლის ამოშლა"
         >
           <mat-icon color="primary">delete</mat-icon>
-        </button></mat-list-item
-      >
+        </button> -->
+      </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
   </mat-drawer>
@@ -113,9 +113,18 @@
                 type="button"
                 (click)="resetPassword()"
                 mat-raised-button
-                color="warn"
+                color="primary"
               >
                 პაროლის დარესეტება
+              </button>
+              <button
+                (click)="deleteUser($event)"
+                class="ml-8"
+                mat-raised-button
+                title="თანამშრომლის ამოშლა"
+                color="warn"
+              >
+                თანამშრომლის წაშლა
               </button>
             </div>
           </div>

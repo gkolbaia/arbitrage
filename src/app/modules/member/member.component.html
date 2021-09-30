@@ -22,9 +22,14 @@
       mat-icon-button
       class="nav-buttons"
       aria-label="Example icon-button with heart icon"
+      [matMenuTriggerFor]="menu"
     >
       <mat-icon>person</mat-icon>
     </button>
+    <mat-menu #menu="matMenu">
+      <button (click)=logOut() mat-menu-item><mat-icon>logout</mat-icon>log out</button>
+      <a mat-menu-item [routerLink]="['profile']" ><mat-icon>person</mat-icon> profile</a>
+    </mat-menu>
   </div>
 </mat-toolbar>
 <router-outlet></router-outlet>
