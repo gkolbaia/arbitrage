@@ -1,5 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  FormArray,
+  Validators,
+} from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CaseService } from '../../../services/case.service';
 
@@ -11,12 +18,16 @@ import { CaseService } from '../../../services/case.service';
 export class ReportFormComponent implements OnInit {
   reportControl: FormGroup;
   @Input() case: any;
+  fileAmout: number[] = [];
   constructor(
     private _fb: FormBuilder,
     private _caseService: CaseService,
-    private _router: Router
+    private _router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.reportControl = _fb.group({
+      title: new FormControl(null, Validators.required),
+      description: new FormControl(null),
       reporter: _fb.group({
         type: 'person',
         firstName: null,
@@ -53,18 +64,30 @@ export class ReportFormComponent implements OnInit {
     return this.defendantControl.controls.type as FormControl;
   }
   get filesControl(): FormArray {
-    return this.reportControl.controls.reportFiles as FormArray;
+    return this.reportControl?.controls?.reportFiles as FormArray;
+  }
+  get titleControl(): FormControl {
+    return this.reportControl.controls.title as FormControl;
+  }
+  get descriptionControl(): FormControl {
+    return this.reportControl.controls.description as FormControl;
   }
   ngOnInit(): void {
     // console.log('case', this.case);
   }
-  fileUploaded(file: any) {
+  fileUploaded(file: any, i: number) {
     if (file?.filename) {
-      this.filesControl.push(new FormControl(file));
+      // this.filesControl.push(new FormControl(file));
+      this.filesControl.controls[i].setValue(file);
+    } else {
+      this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ოკ', {
+        duration: 2000,
+        panelClass: 'err-message',
+      });
     }
   }
-  deletedFile(e: any) {
-    console.log(e);
+  deletedFile(e: any, i: number) {
+    this.filesControl.removeAt(i);
   }
   getFile() {}
   saveCase() {
@@ -72,10 +95,12 @@ export class ReportFormComponent implements OnInit {
       this._caseService
         .createCase(this.reportControl.value)
         .subscribe((res) => {
-          // console.log(res);
           this._caseService.setCase(res);
-          this._router.navigate(['guest/answer']);
+          this._router.navigate([`guest/answer/${res.caseId}`]);
         });
     }
+  }
+  addFileUploader() {
+    this.filesControl.push(new FormControl({}));
   }
 }

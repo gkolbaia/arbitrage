@@ -1,5 +1,13 @@
 <div class="container">
   <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="საჩივრის ატვირთვა">
+      <mat-card class="card">
+        <div mat-card-header class="mb-20">
+          <div class="header" mat-card-title>საქმის დამატება</div>
+        </div>
+        <app-report-form></app-report-form>
+      </mat-card>
+    </mat-tab>
     <mat-tab label="პასუხის ატვირთვა">
       <form>
         <div class="mt-10 p-20">
@@ -26,14 +34,6 @@
           </div>
         </div>
       </form>
-    </mat-tab>
-    <mat-tab label="საჩივრის ატვირთვა">
-      <mat-card class="card">
-        <div mat-card-header class="mb-20">
-          <div class="header" mat-card-title>საქმის დამატება</div>
-        </div>
-        <app-report-form></app-report-form>
-      </mat-card>
     </mat-tab>
   </mat-tab-group>
 </div>

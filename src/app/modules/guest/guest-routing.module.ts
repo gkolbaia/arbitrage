@@ -19,7 +19,7 @@ const routes: Routes = [
         component: AuthComponent,
       },
       {
-        path: 'answer',
+        path: 'answer/:caseId',
         component: AnswerSheetComponent,
       },
     ],

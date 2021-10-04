@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CaseService } from '../services/case.service';
 
 @Component({
@@ -7,11 +8,20 @@ import { CaseService } from '../services/case.service';
   styleUrls: ['./answer-sheet.component.scss'],
 })
 export class AnswerSheetComponent implements OnInit {
-  constructor(private _caseService: CaseService) {}
+  constructor(
+    private _caseService: CaseService,
+    private _activatedRoute: ActivatedRoute
+  ) {}
   case: any;
+  caseUser: any;
   ngOnInit(): void {
-    this._caseService.case.subscribe((res) => {
-      this.case = res;
+    this._activatedRoute.params.subscribe((res) => {
+      if (res?.caseId) {
+        this._caseService.getCase(res.caseId).subscribe((res) => {
+          this.case = res.result;
+          this.caseUser = res.user;
+        });
+      }
     });
   }
 }

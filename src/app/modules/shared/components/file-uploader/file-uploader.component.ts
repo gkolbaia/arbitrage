@@ -40,8 +40,8 @@ export class FileUploaderComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.file) {
-      this.fileName = this.file.name;
-      this.fileId = this.file.id;
+      this.fileName = this.file.originalname;
+      this.fileId = this.file.filename;
     }
   }
   downloadFile() {
