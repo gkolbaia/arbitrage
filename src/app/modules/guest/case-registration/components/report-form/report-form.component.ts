@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { LoadingService } from 'src/app/modules/shared/services/loading.service';
 import { CaseService } from '../../../services/case.service';
 
 @Component({
@@ -23,7 +24,8 @@ export class ReportFormComponent implements OnInit {
     private _fb: FormBuilder,
     private _caseService: CaseService,
     private _router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _loadingService: LoadingService
   ) {
     this.reportControl = _fb.group({
       title: new FormControl(null, Validators.required),
@@ -92,12 +94,33 @@ export class ReportFormComponent implements OnInit {
   getFile() {}
   saveCase() {
     if (this.reportControl.valid) {
-      this._caseService
-        .createCase(this.reportControl.value)
-        .subscribe((res) => {
-          this._caseService.setCase(res);
-          this._router.navigate([`guest/answer/${res.caseId}`]);
+      this._loadingService.loadingOn();
+      if (this.filesControl.value.length) {
+        this.filesControl.value.length.forEach((file: any, i: number) => {
+          if (!file.filename) {
+            this.filesControl.removeAt(i);
+          }
         });
+      }
+      this._caseService.createCase(this.reportControl.value).subscribe(
+        (res) => {
+          this._caseService.setCase(res);
+          this._loadingService.loadingOff();
+          this._router.navigate([`guest/answer/${res.caseId}`]);
+        },
+        (err) => {
+          this._snackBar.open('საქმის ატვირთვისას დაფიქსირდა შეცდომა', 'ოკ', {
+            duration: 2000,
+            panelClass: 'err-message',
+          });
+          this._loadingService.loadingOff();
+        }
+      );
+    } else {
+      this._snackBar.open('გთხოვთ სრულად შეავსოთ ფორმა', 'ოკ', {
+        duration: 2000,
+        panelClass: 'err-message',
+      });
     }
   }
   addFileUploader() {

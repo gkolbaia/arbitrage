@@ -23,4 +23,9 @@ export class CaseService {
       .get(`api/case/${caseNumber}`)
       .pipe(map((res: any) => res.result.data));
   }
+  addDefendantFiles(data: { _id: string; defendantFiles: any[] }) {
+    return this._http
+      .post(`api/case/defendant/files`, { data })
+      .pipe(map((res: any) => res.result.data));
+  }
 }

@@ -1,5 +1,8 @@
 <div class="container">
   <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="პასუხის ატვირთვა">
+      <app-defendant-form></app-defendant-form>
+    </mat-tab>
     <mat-tab label="საჩივრის ატვირთვა">
       <mat-card class="card">
         <div mat-card-header class="mb-20">
@@ -7,33 +10,6 @@
         </div>
         <app-report-form></app-report-form>
       </mat-card>
-    </mat-tab>
-    <mat-tab label="პასუხის ატვირთვა">
-      <form>
-        <div class="mt-10 p-20">
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>საქმის ნომერი</mat-label>
-            <input
-              [formControl]="caseIdControl"
-              type="text"
-              matInput
-              autocomplete="off"
-            />
-          </mat-form-field>
-          <button
-            (click)="findCase()"
-            color="primary"
-            type="button"
-            mat-raised-button
-          >
-            მოძებნა
-          </button>
-          <div *ngIf="case">
-            <hr />
-            <app-report-form [case]="case"></app-report-form>
-          </div>
-        </div>
-      </form>
     </mat-tab>
   </mat-tab-group>
 </div>

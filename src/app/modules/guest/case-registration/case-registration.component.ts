@@ -29,11 +29,4 @@ export class CaseRegistrationComponent implements OnInit {
 
   getFile() {}
 
-  findCase() {
-    if (this.caseIdControl.valid) {
-      this._caseService.getCase(this.caseIdControl.value).subscribe((res) => {
-        this.case = res;
-      });
-    }
-  }
 }

@@ -11,9 +11,10 @@ import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AnswerSheetComponent } from './answer-sheet/answer-sheet.component';
 import { ReportFormComponent } from './case-registration/components/report-form/report-form.component';
+import { DefendantFormComponent } from './case-registration/components/defendant-form/defendant-form.component';
 
 @NgModule({
-  declarations: [GuestComponent, CaseRegistrationComponent, AuthComponent, AnswerSheetComponent, ReportFormComponent],
+  declarations: [GuestComponent, CaseRegistrationComponent, AuthComponent, AnswerSheetComponent, ReportFormComponent, DefendantFormComponent],
   imports: [
     CommonModule,
     GuestRoutingModule,
