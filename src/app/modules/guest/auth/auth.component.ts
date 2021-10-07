@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 
@@ -13,7 +14,8 @@ export class AuthComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.credentialsControl = _fb.group({
       username: ['', Validators.required],
@@ -27,13 +29,31 @@ export class AuthComponent implements OnInit {
       return;
     }
     this._authService.login(this.credentialsControl.value).subscribe(
-      (res) => {
-        localStorage.setItem('employee', JSON.stringify(res));
-        this.router.navigate(['/admin']);
+      (res: any) => {
+        localStorage.setItem('user', JSON.stringify(res));
+        if (res?.type === 'USER') {
+          this.router.navigate(['/admin']);
+        } else if (res?.type === 'CASE') {
+          this.router.navigate(['/user']);
+          console.log('caseUser');
+        }
       },
       (err) => {
-        //TODO handle error
-        console.log(err);
+        if (err.error.statusCode === 400) {
+          this._snackBar.open('მომხმარებელი ან პაროლი არასწორია', 'ოკ', {
+            duration: 2000,
+            panelClass: 'err-message',
+          });
+        } else {
+          this._snackBar.open(
+            'დაფიქსირდა შეცდომა, გთხოვთ ცადოთ მოგვიანებით',
+            'ოკ',
+            {
+              duration: 2000,
+              panelClass: 'err-message',
+            }
+          );
+        }
       }
     );
   }

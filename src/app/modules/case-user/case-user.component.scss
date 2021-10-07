@@ -1,0 +1,86 @@
+.nav-buttons {
+  margin: 0 16px;
+}
+
+.active {
+  color: blue;
+}
+
+.nav-links {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-paddings {
+  padding-left: 400px;
+  padding-right: 50px;
+}
+
+// .case-user-page-wrapper {
+//   max-width: 1000px;
+//   margin: auto;
+//   margin-top: 81px;
+
+//   .case-info {
+//     .case-info-list{
+//       width: 450px;
+//     }
+//   }
+// }
+.case-user-page-wrapper {
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 81px;
+
+  .case-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .case-info-box {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .left-list {
+      position: relative;
+      width: 550px;
+      padding: 0;
+      list-style-type: none;
+
+      li {
+        width: 100%;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        border-bottom: solid 1px #EEEEEE;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .vl {
+      border-left: 6px solid green;
+      height: 100%;
+    }
+
+    .right-list {
+      width: 300px;
+      padding: 0;
+      list-style-type: none;
+
+      li {
+        width: 100%;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        border-bottom: solid 1px #EEEEEE;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
+
+
+}

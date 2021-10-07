@@ -4,11 +4,7 @@ import { ForbiddenComponent } from './modules/shared/components/forbidden/forbid
 import { AuthGuard } from './modules/shared/guards/auth.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/guest/case-registration',
-    pathMatch: 'full',
-  },
+
   {
     path: 'admin',
     canActivate: [AuthGuard],
@@ -21,8 +17,19 @@ const routes: Routes = [
       import('./modules/guest/guest.module').then((m) => m.GuestModule),
   },
   {
+    path: 'user',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./modules/case-user/case-user.module').then((m) => m.CaseUserModule),
+  },
+  {
     path: 'forbidden',
     component: ForbiddenComponent,
+  },
+  {
+    path: '',
+    redirectTo: '/guest/case-registration',
+    pathMatch: 'full',
   },
 ];
 

@@ -80,6 +80,7 @@ export class ReportFormComponent implements OnInit {
   fileUploaded(file: any, i: number) {
     if (file?.filename) {
       // this.filesControl.push(new FormControl(file));
+      file.createdAt = new Date();
       this.filesControl.controls[i].setValue(file);
     } else {
       this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ოკ', {
@@ -96,7 +97,7 @@ export class ReportFormComponent implements OnInit {
     if (this.reportControl.valid) {
       this._loadingService.loadingOn();
       if (this.filesControl.value.length) {
-        this.filesControl.value.length.forEach((file: any, i: number) => {
+        this.filesControl.value.forEach((file: any, i: number) => {
           if (!file.filename) {
             this.filesControl.removeAt(i);
           }

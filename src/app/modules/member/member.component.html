@@ -27,8 +27,8 @@
       <mat-icon>person</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button (click)=logOut() mat-menu-item><mat-icon>logout</mat-icon>log out</button>
       <a mat-menu-item [routerLink]="['profile']" ><mat-icon>person</mat-icon> profile</a>
+      <button (click)=logOut() mat-menu-item><mat-icon>logout</mat-icon>log out</button>
     </mat-menu>
   </div>
 </mat-toolbar>

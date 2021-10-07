@@ -82,6 +82,7 @@ export class DefendantFormComponent implements OnInit {
   }
   fileUploaded(file: any, i: number) {
     if (file?.filename) {
+      file.createdAt = new Date();
       this.defendantFiles.controls[i].setValue(file);
     } else {
       this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ოკ', {

@@ -7,10 +7,16 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
 import { CommonModule } from '@angular/common';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { FilesTableComponent } from './components/files-table/files-table.component';
 @NgModule({
-  declarations: [FileUploaderComponent, ForbiddenComponent, ConfirmationDialogComponent],
+  declarations: [
+    FileUploaderComponent,
+    ForbiddenComponent,
+    ConfirmationDialogComponent,
+    FilesTableComponent,
+  ],
   imports: [CommonModule, MaterialModule, HttpClientModule],
-  exports: [MaterialModule, FileUploaderComponent],
+  exports: [MaterialModule, FileUploaderComponent, FilesTableComponent],
   providers: [
     AuthGuard,
     {
