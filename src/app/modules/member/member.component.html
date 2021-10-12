@@ -7,6 +7,7 @@
   <span>Arbitrage</span>
   <div>
     <a
+      *ngIf="superAdmin"
       class="nav-buttons nav-links"
       routerLinkActive="active"
       [routerLink]="['um']"
@@ -27,8 +28,12 @@
       <mat-icon>person</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <a mat-menu-item [routerLink]="['profile']" ><mat-icon>person</mat-icon> profile</a>
-      <button (click)=logOut() mat-menu-item><mat-icon>logout</mat-icon>log out</button>
+      <a mat-menu-item [routerLink]="['profile']"
+        ><mat-icon>person</mat-icon> profile</a
+      >
+      <button (click)="logOut()" mat-menu-item>
+        <mat-icon>logout</mat-icon>log out
+      </button>
     </mat-menu>
   </div>
 </mat-toolbar>

@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     component: MemberComponent,
     children: [
-      { path: '', redirectTo: 'um', pathMatch: 'full' },
+      // { path: '', redirectTo: 'um', pathMatch: 'full' },
       {
         path: 'um',
         component: UmComponent,

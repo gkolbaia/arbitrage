@@ -24,7 +24,6 @@ export class CaseUserComponent implements OnInit {
     this._router.navigate(['/guest/auth']);
   }
   loadData() {
-    console.log(1);
     this._loadingService.loadingOn();
     this.caseService.getCaseForCaseUser().subscribe(
       (res) => {
