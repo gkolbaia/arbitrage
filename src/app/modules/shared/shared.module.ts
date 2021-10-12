@@ -8,15 +8,23 @@ import { CommonModule } from '@angular/common';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { FilesTableComponent } from './components/files-table/files-table.component';
+import { CaseDetailsComponent } from './components/case-details/case-details.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [
     FileUploaderComponent,
     ForbiddenComponent,
     ConfirmationDialogComponent,
     FilesTableComponent,
+    CaseDetailsComponent,
   ],
-  imports: [CommonModule, MaterialModule, HttpClientModule],
-  exports: [MaterialModule, FileUploaderComponent, FilesTableComponent],
+  imports: [CommonModule, MaterialModule, HttpClientModule, FlexLayoutModule],
+  exports: [
+    MaterialModule,
+    FileUploaderComponent,
+    FilesTableComponent,
+    CaseDetailsComponent,
+  ],
   providers: [
     AuthGuard,
     {

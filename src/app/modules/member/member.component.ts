@@ -16,7 +16,7 @@ export class MemberComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.navigation();
+    // this.navigation();
   }
   logOut() {
     localStorage.removeItem('access-token');

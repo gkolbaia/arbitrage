@@ -1,0 +1,70 @@
+<h2 *ngIf="data" fxLayout="row" fxLayoutAlign="end center" mat-dialog-title>
+  <button (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>
+</h2>
+<div class="case-user-page-wrapper" *ngIf="case">
+  <mat-card>
+    <div>
+      <div class="case-info">
+        <div class="case-info-header">
+          <h4>საქმის შემომტანი პირის პირადი სივრცე</h4>
+          <h4>სტატუსი: {{ CaseStatus[case.status] }}</h4>
+        </div>
+
+        <div class="case-info-box">
+          <!-- CASE -->
+          <ul class="left-list">
+            <li>
+              <span>საქმის ნომერი:</span>
+              <span>{{ case.caseId }}</span>
+            </li>
+            <li>
+              <span>რეგისტრაციის თარიღი:</span>
+              <span>{{ case.record.createdAt | date: "dd.MM.yy hh:mm" }}</span>
+            </li>
+            <li><span>არბიტრი</span></li>
+          </ul>
+          <div class="vl"></div>
+          <!-- DEFENDANT -->
+          <ul class="right-list">
+            <li>
+              <span>მოსარჩელე</span
+              ><span *ngIf="case.reporter.type === 'person'"
+                >{{ case?.reporter?.firstName }}
+                {{ case?.reporter?.lastName }}</span
+              >
+              <span *ngIf="case.reporter.type === 'company'"
+                >{{ case?.reporter?.organisationName }}
+              </span>
+            </li>
+            <li>
+              <span>მოპასუხე</span
+              ><span *ngIf="case.reporter.type === 'person'">
+                {{ case?.defendant?.firstName }}
+                {{ case?.defendant?.lastName }}</span
+              >
+              <span *ngIf="case.reporter.type === 'company'">
+                {{ case?.defendant?.organisationName }}</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <div class="mt-10">
+    <mat-tab-group mat-align-tabs="start" style="width: 100%">
+      <mat-tab label="სასამართლო აქტები"
+        ><app-files-table [data]="case"></app-files-table
+      ></mat-tab>
+      <mat-tab label="წარმოდგენილი ფაილები">Content 2</mat-tab>
+      <mat-tab label="სასამართლო სხდომები">Content 3</mat-tab>
+    </mat-tab-group>
+  </div>
+  <mat-dialog-actions *ngIf="data" class="mt-10 mb-20">
+    <button (click)="approveCase()" mat-button class="green-btn">
+      Approve
+    </button>
+    <button (click)="rejectCase()" mat-button color="warn">უარყოფა</button>
+  </mat-dialog-actions>
+</div>

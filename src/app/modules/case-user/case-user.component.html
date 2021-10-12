@@ -21,64 +21,6 @@
     </mat-menu>
   </div>
 </mat-toolbar>
-<div class="case-user-page-wrapper" *ngIf="case">
-  <mat-card>
-    <div>
-      <div class="case-info">
-        <div class="case-info-header">
-          <h4>საქმის შემომტანი პირის პირადი სივრცე</h4>
-          <h4>სტატუსი: მიმდინარე</h4>
-        </div>
-
-        <div class="case-info-box">
-          <!-- CASE -->
-          <ul class="left-list">
-            <li>
-              <span>საქმის ნომერი:</span>
-              <span>{{ case.caseId }}</span>
-            </li>
-            <li>
-              <span>რეგისტრაციის თარიღი:</span>
-              <span>{{ case.record.createdAt | date: "dd.MM.yy hh:mm" }}</span>
-            </li>
-            <li><span>არბიტრი</span></li>
-          </ul>
-          <div class="vl"></div>
-          <!-- DEFENDANT -->
-          <ul class="right-list">
-            <li>
-              <span>მოსარჩელე</span
-              ><span *ngIf="case.reporter.type === 'person'"
-                >{{ case?.reporter?.firstName }}
-                {{ case?.reporter?.lastName }}</span
-              >
-              <span *ngIf="case.reporter.type === 'company'"
-                >{{ case?.reporter?.organisationName }}
-              </span>
-            </li>
-            <li>
-              <span>მოპასუხე</span
-              ><span *ngIf="case.reporter.type === 'person'">
-                {{ case?.defendant?.firstName }}
-                {{ case?.defendant?.lastName }}</span
-              >
-              <span *ngIf="case.reporter.type === 'company'">
-                {{ case?.defendant?.organisationName }}</span
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </mat-card>
-
-  <div class="mt-10">
-    <mat-tab-group mat-align-tabs="start" style="width: 100%">
-      <mat-tab label="სასამართლო აქტები"
-        ><app-files-table [data]="case"></app-files-table
-      ></mat-tab>
-      <mat-tab label="წარმოდგენილი ფაილები">Content 2</mat-tab>
-      <mat-tab label="სასამართლო სხდომები">Content 3</mat-tab>
-    </mat-tab-group>
-  </div>
+<div style="margin-top: 81px;">
+  <app-case-details [case]="case"></app-case-details>
 </div>

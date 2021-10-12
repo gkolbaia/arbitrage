@@ -9,8 +9,10 @@ export class UserService {
   registrateUser(user: any) {
     return this._http.post('api/user', { data: user });
   }
-  getUsers() {
-    return this._http.post('api/user/find', {});
+  getUsers(role?: string) {
+    let data = role ? { role } : {};
+
+    return this._http.post('api/user/find', { data });
   }
   deleteUser(id: string) {
     return this._http.delete(`api/user/${id}`);

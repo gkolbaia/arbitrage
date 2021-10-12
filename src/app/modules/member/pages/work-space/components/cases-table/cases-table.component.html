@@ -1,4 +1,10 @@
 <table *ngIf="dataSource" mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="caseId">
+    <th mat-header-cell *matHeaderCellDef>N</th>
+    <td mat-cell class="linked" *matCellDef="let element">
+      <div>{{ element.caseId }}</div>
+    </td>
+  </ng-container>
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef>სახელი</th>
     <td mat-cell class="linked" *matCellDef="let element">
@@ -8,7 +14,7 @@
   <ng-container matColumnDef="status">
     <th mat-header-cell *matHeaderCellDef>სტატუსი</th>
     <td mat-cell class="linked" *matCellDef="let element">
-      <div>{{ element.status }}</div>
+      <div>{{ CaseStatus[element.status] }}</div>
     </td>
   </ng-container>
   <ng-container matColumnDef="actions">
@@ -20,7 +26,7 @@
         matTooltip="რედაქტირება"
         (click)="openEditDialog(element)"
       >
-        <mat-icon> edit </mat-icon>
+        <mat-icon> details </mat-icon>
       </button>
       <button
         mat-icon-button

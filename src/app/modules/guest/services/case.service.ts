@@ -31,4 +31,9 @@ export class CaseService {
   getCaseForCaseUser() {
     return this._http.get(`api/case/`).pipe(map((res: any) => res.result.data));
   }
+  rejectCase(id: string) {
+    return this._http
+      .patch(`api/case/reject/${id}`, {})
+      .pipe(map((res: any) => res.result.data));
+  }
 }

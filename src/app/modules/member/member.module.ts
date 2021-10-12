@@ -13,6 +13,7 @@ import { AddCaseDialogComponent } from './pages/work-space/components/add-case-d
 import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { ChangePasswordDialogComponent } from './pages/user-profile/dialogs/change-password-dialog/change-password-dialog.component';
+import { ApproveCaseDialogComponent } from './pages/work-space/components/approve-case-dialog/approve-case-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ChangePasswordDialogComponent } from './pages/user-profile/dialogs/chan
     AddCaseDialogComponent,
     UserProfileComponent,
     ChangePasswordDialogComponent,
+    ApproveCaseDialogComponent,
   ],
   imports: [
     MemberRoutingModule,
