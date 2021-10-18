@@ -37,12 +37,18 @@ export class WorkSpaceComponent implements OnInit {
     this._casesService.getDraftCases().subscribe(
       (res: any) => {
         this.dataSource = res.result.data;
-        console.log(this.dataSource)
+        console.log(this.dataSource);
         this._loadingService.loadingOff();
       },
       (err) => {
         this._loadingService.loadingOff();
       }
     );
+  }
+  bindCaseToArbitr(e: any) {
+    console.log(e);
+    if (e.success) {
+      this.loadDraftCases();
+    }
   }
 }

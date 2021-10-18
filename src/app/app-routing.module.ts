@@ -4,7 +4,6 @@ import { ForbiddenComponent } from './modules/shared/components/forbidden/forbid
 import { AuthGuard } from './modules/shared/guards/auth.guard';
 
 const routes: Routes = [
-
   {
     path: 'admin',
     canActivate: [AuthGuard],
@@ -20,7 +19,9 @@ const routes: Routes = [
     path: 'user',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./modules/case-user/case-user.module').then((m) => m.CaseUserModule),
+      import('./modules/case-user/case-user.module').then(
+        (m) => m.CaseUserModule
+      ),
   },
   {
     path: 'forbidden',

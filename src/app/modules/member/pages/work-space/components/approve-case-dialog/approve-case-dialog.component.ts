@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CaseService } from 'src/app/modules/guest/services/case.service';
 import { UserService } from 'src/app/modules/member/services/user.service';
 import { LoadingService } from 'src/app/modules/shared/services/loading.service';
@@ -12,12 +13,14 @@ import { LoadingService } from 'src/app/modules/shared/services/loading.service'
 })
 export class ApproveCaseDialogComponent implements OnInit {
   arbitrs: any;
-  arbitrControl: FormControl = new FormControl();
+  arbitrControl: FormControl = new FormControl(null, Validators.required);
   constructor(
     public dialogRef: MatDialogRef<ApproveCaseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _userService: UserService,
-    private _loadingService: LoadingService
+    private _loadingService: LoadingService,
+    private _caseService: CaseService,
+    private _snackBar: MatSnackBar
   ) {
     this.loadArbitrs();
   }
@@ -39,6 +42,13 @@ export class ApproveCaseDialogComponent implements OnInit {
     this.dialogRef.close();
   }
   selectArbitr() {
-    console.log(this.arbitrControl.value);
+    if (this.arbitrControl.valid) {
+      this.dialogRef.close(this.arbitrControl.value);
+    } else {
+      this._snackBar.open('გთხოვთ აირჩიოთ არბიტრი', 'ok', {
+        duration: 2000,
+        panelClass: 'err-message',
+      });
+    }
   }
 }

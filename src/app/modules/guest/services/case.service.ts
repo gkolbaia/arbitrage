@@ -36,4 +36,9 @@ export class CaseService {
       .patch(`api/case/reject/${id}`, {})
       .pipe(map((res: any) => res.result.data));
   }
+  bindUserToCase(userId: string, caseId: string) {
+    return this._http
+      .patch(`api/case/bind/user/${userId}/case/${caseId}`, {})
+      .pipe(map((res: any) => res.result.data));
+  }
 }

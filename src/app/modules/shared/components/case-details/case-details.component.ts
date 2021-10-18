@@ -59,9 +59,28 @@ export class CaseDetailsComponent implements OnInit {
     });
   }
   approveCase() {
-    this._matDialog.open(ApproveCaseDialogComponent, {
+    const dialogRef = this._matDialog.open(ApproveCaseDialogComponent, {
       width: '500px',
       autoFocus: false,
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res?._id) {
+        this._loadingService.loadingOn();
+        this._caseService.bindUserToCase(res._id, this.case._id).subscribe(
+          (res) => {
+            this._loadingService.loadingOff();
+            this.dialogRef.close({
+              firstName: res?.firstName,
+              lastName: res?.lastName,
+              success: true,
+            });
+          },
+          (err) => {
+            this._loadingService.loadingOff();
+          }
+        );
+      }
     });
   }
 }
