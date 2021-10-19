@@ -20,7 +20,7 @@ export class MemberComponent implements OnInit {
   }
   logOut() {
     localStorage.removeItem('access-token');
-    localStorage.removeItem('user');
+    // localStorage.removeItem('user');
     this._router.navigate(['/guest/auth']);
   }
   private navigation(): void {

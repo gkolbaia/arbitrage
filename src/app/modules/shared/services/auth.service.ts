@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class AuthService {
   constructor(private _http: HttpClient) {}
+  public loggedUser: BehaviorSubject<any> = new BehaviorSubject(null);
   login(user: { username: string; password: string }) {
     return this._http.post('api/auth/login', {
       data: { user },
@@ -76,32 +77,38 @@ export class AuthService {
     }
   }
   get arbitr() {
-    const userStr = localStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : null;
-    if (user?.roles?.length) {
-      const arbitr = user.roles.find((role: string) => role === 'ARBITR');
-      return arbitr;
-    }
-    return false;
+    return  this.loggedUser.getValue().roles.includes('ARBITR');
+    // const userStr = localStorage.getItem('user');
+    // const user = userStr ? JSON.parse(userStr) : null;
+    // if (user?.roles?.length) {
+    //   const arbitr = user.roles.find((role: string) => role === 'ARBITR');
+    //   return arbitr;
+    // }
+    // return false;
   }
   get president() {
-    const userStr = localStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : null;
-    if (user?.roles?.length) {
-      const president = user.roles.find((role: string) => role === 'PRESIDENT');
-      return president;
-    }
-    return false;
+    return  this.loggedUser.getValue().roles.includes('PRESIDENT');
+    // const userStr = localStorage.getItem('user');
+    // const user = userStr ? JSON.parse(userStr) : null;
+    // if (user?.roles?.length) {
+    //   const president = user.roles.find((role: string) => role === 'PRESIDENT');
+    //   return president;
+    // }
+    // return false;
   }
-  get superAdmin() {
-    const userStr = localStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : null;
-    if (user?.roles?.length) {
-      const superAdmin = user.roles.find(
-        (role: string) => role === 'SUPERADMIN'
-      );
-      return superAdmin;
-    }
-    return false;
+  get superAdmin(): boolean {
+    return  this.loggedUser.getValue().roles.includes('SUPERADMIN');
+    // const userStr = localStorage.getItem('user');
+    // const user = userStr ? JSON.parse(userStr) : null;
+    // if (user?.roles?.length) {
+    //   const superAdmin = user.roles.find(
+    //     (role: string) => role === 'SUPERADMIN'
+    //   );
+    //   return superAdmin;
+    // }
+    // return false;
+  }
+  setLoggedUser(user: any) {
+    this.loggedUser.next(user);
   }
 }

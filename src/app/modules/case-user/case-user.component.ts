@@ -20,7 +20,7 @@ export class CaseUserComponent implements OnInit {
   ngOnInit(): void {}
   logOut() {
     localStorage.removeItem('access-token');
-    localStorage.removeItem('user');
+    // localStorage.removeItem('user');
     this._router.navigate(['/guest/auth']);
   }
   loadData() {

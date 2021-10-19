@@ -8,9 +8,11 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class tokenInterceptor implements HttpInterceptor {
+  constructor(private _authService: AuthService) {}
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -25,6 +27,9 @@ export class tokenInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       map((event) => {
         if (event instanceof HttpResponse) {
+          if (event.url?.includes('auth/user')) {
+            this._authService.setLoggedUser(event.body);
+          }
           if (event.headers.get('access-token')) {
             localStorage.setItem(
               'access-token',
@@ -32,7 +37,7 @@ export class tokenInterceptor implements HttpInterceptor {
             );
           }
           if (event.status === 401) {
-            localStorage.removeItem('session-token');
+            localStorage.removeItem('access-token');
           }
         }
         return event;

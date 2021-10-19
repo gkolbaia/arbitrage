@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, of } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { LoadingService } from 'src/app/modules/shared/services/loading.service';
 import { CasesService } from '../../services/cases.service';
 import { AddCaseDialogComponent } from './components/add-case-dialog/add-case-dialog.component';
@@ -17,12 +18,7 @@ export class WorkSpaceComponent implements OnInit {
   term?: string;
   dataSource = [];
   searchControl: FormControl = new FormControl();
-  constructor(
-    private _dialog: MatDialog,
-    private _casesService: CasesService,
-    private _loadingService: LoadingService,
-    private cdRef: ChangeDetectorRef
-  ) {}
+  constructor(private _dialog: MatDialog, private cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
   addCase() {

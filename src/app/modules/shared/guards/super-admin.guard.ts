@@ -26,7 +26,7 @@ export class SuperAdminGuard implements CanActivate {
     const url: string = state.url;
     return this.checkSuperAdmin(url);
   }
-  checkSuperAdmin(url: string) {
+  checkSuperAdmin(url: string): Observable<any> {
     return this._authService.isSuperAdmin.pipe(
       tap((isLoggedIn) => {
         if (isLoggedIn) {

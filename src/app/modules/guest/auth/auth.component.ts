@@ -30,7 +30,7 @@ export class AuthComponent implements OnInit {
     }
     this._authService.login(this.credentialsControl.value).subscribe(
       (res: any) => {
-        localStorage.setItem('user', JSON.stringify(res));
+        // localStorage.setItem('user', JSON.stringify(res));
         if (res?.type === 'USER') {
           this.router.navigate(['/admin']);
         } else if (res?.type === 'CASE') {
