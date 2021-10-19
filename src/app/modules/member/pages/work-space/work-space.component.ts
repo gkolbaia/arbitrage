@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable, of } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/modules/shared/services/loading.service';
 import { CasesService } from '../../services/cases.service';
 import { AddCaseDialogComponent } from './components/add-case-dialog/add-case-dialog.component';
@@ -10,19 +13,16 @@ import { AddCaseDialogComponent } from './components/add-case-dialog/add-case-di
   styleUrls: ['./work-space.component.scss'],
 })
 export class WorkSpaceComponent implements OnInit {
-  dataSource = [
-    {
-      title: 'სასამართლო დავა',
-      status: 'მიმდინარე',
-    },
-  ];
+  tableProgressBar: boolean = false;
+  term?: string;
+  dataSource = [];
+  searchControl: FormControl = new FormControl();
   constructor(
     private _dialog: MatDialog,
     private _casesService: CasesService,
-    private _loadingService: LoadingService
-  ) {
-    this.loadDraftCases();
-  }
+    private _loadingService: LoadingService,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {}
   addCase() {
@@ -32,23 +32,20 @@ export class WorkSpaceComponent implements OnInit {
       disableClose: true,
     });
   }
-  loadDraftCases() {
-    this._loadingService.loadingOn();
-    this._casesService.getDraftCases().subscribe(
-      (res: any) => {
-        this.dataSource = res.result.data;
-        console.log(this.dataSource);
-        this._loadingService.loadingOff();
-      },
-      (err) => {
-        this._loadingService.loadingOff();
-      }
-    );
-  }
-  bindCaseToArbitr(e: any) {
-    console.log(e);
-    if (e.success) {
-      this.loadDraftCases();
+  search(e: MouseEvent) {
+    e.preventDefault();
+    if (this.searchControl?.value?.length >= 3) {
+      this.term = this.searchControl.value;
+    } else {
+      //TODO snackbar
     }
+  }
+  clearSearch() {
+    this.searchControl.setValue(null);
+    this.term = this.searchControl.value;
+  }
+  setLoading(e: boolean) {
+    this.tableProgressBar = e;
+    this.cdRef.detectChanges();
   }
 }

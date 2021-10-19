@@ -1,7 +1,7 @@
 <h2 *ngIf="data" fxLayout="row" fxLayoutAlign="end center" mat-dialog-title>
   <button (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>
 </h2>
-<div class="case-user-page-wrapper" *ngIf="case">
+<div mat-dialog-content class="case-user-page-wrapper" *ngIf="case">
   <mat-card>
     <div>
       <div class="case-info">
@@ -51,14 +51,13 @@
       </div>
     </div>
   </mat-card>
-  matTabContent
   <div class="mt-10">
     <mat-tab-group mat-align-tabs="start" style="width: 100%">
-      <mat-tab label="სასამართლო აქტები"
+      <mat-tab label="წარმოდგენილი ფაილები"
         ><ng-template matTabContent>
           <app-files-table [data]="case"></app-files-table> </ng-template
       ></mat-tab>
-      <mat-tab label="წარმოდგენილი ფაილები"
+      <mat-tab label="სასამართლო აქტები"
         ><ng-template matTabContent>sada</ng-template></mat-tab
       >
       <mat-tab label="სასამართლო სხდომები"

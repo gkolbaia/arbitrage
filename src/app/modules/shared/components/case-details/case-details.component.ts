@@ -43,16 +43,16 @@ export class CaseDetailsComponent implements OnInit {
       if (res) {
         this._caseService.rejectCase(this.case._id).subscribe(
           (res) => {
-            this._snackBar.open('საჩივარი უარყოფილია', 'ok', {
-              duration: 10000,
-              panelClass: 'message-warn',
+            this._loadingService.loadingOff();
+            this.dialogRef.close({
+              firstName: res?.firstName,
+              lastName: res?.lastName,
+              success: true,
+              message: 'საქმე უარყოფილია',
             });
           },
           (err) => {
-            this._snackBar.open(err.message, 'ok', {
-              duration: 10000,
-              panelClass: 'err-message',
-            });
+            this._loadingService.loadingOff();
           }
         );
       }
@@ -68,12 +68,13 @@ export class CaseDetailsComponent implements OnInit {
       if (res?._id) {
         this._loadingService.loadingOn();
         this._caseService.bindUserToCase(res._id, this.case._id).subscribe(
-          (res) => {
+          (res1) => {
             this._loadingService.loadingOff();
             this.dialogRef.close({
-              firstName: res?.firstName,
-              lastName: res?.lastName,
+              firstName: res1?.arbitr?.firstName,
+              lastName: res1?.arbitr.lastName,
               success: true,
+              message: `საქმე დაეწერა ${res1?.arbitr?.firstName} ${res1?.arbitr?.lastName}`,
             });
           },
           (err) => {

@@ -40,7 +40,6 @@ export class DefendantFormComponent implements OnInit {
       this._caseService.getCase(this.caseIdControl.value).subscribe((res) => {
         if (res?.result) {
           this.case = res.result;
-          console.log(this.case);
         } else {
           this._snackBar.open('მითითებული ნომრით საქმე არ მოიძებნა', 'ოკ', {
             duration: 2000,
@@ -52,7 +51,6 @@ export class DefendantFormComponent implements OnInit {
     }
   }
   addDefendantFiles() {
-    console.log(this.defendantFiles.value);
     if (this.defendantFiles.value.length) {
       this._loadingService.loadingOn();
       const data = {

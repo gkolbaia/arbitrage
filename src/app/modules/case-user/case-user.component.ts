@@ -29,7 +29,6 @@ export class CaseUserComponent implements OnInit {
       (res) => {
         this.case = res;
         this._loadingService.loadingOff();
-        console.log(this.case)
       },
       (err) => {
         this._loadingService.loadingOff();

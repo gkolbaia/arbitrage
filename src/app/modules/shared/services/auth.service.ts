@@ -97,7 +97,9 @@ export class AuthService {
     const userStr = localStorage.getItem('user');
     const user = userStr ? JSON.parse(userStr) : null;
     if (user?.roles?.length) {
-      const superAdmin = user.roles.find((role: string) => role === 'SUPERADMIN');
+      const superAdmin = user.roles.find(
+        (role: string) => role === 'SUPERADMIN'
+      );
       return superAdmin;
     }
     return false;

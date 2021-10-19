@@ -32,7 +32,6 @@ export class FilesTableComponent implements OnInit {
   }
   generateDatasource() {
     this.dataSource = [...this.data?.defendantFiles, ...this.data?.reportFiles];
-    console.log(this.dataSource);
   }
   downloadFile(file: any) {
     this._loadingService.loadingOn();

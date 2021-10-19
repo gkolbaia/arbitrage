@@ -35,7 +35,6 @@ export class AuthComponent implements OnInit {
           this.router.navigate(['/admin']);
         } else if (res?.type === 'CASE') {
           this.router.navigate(['/user']);
-          console.log('caseUser');
         }
       },
       (err) => {

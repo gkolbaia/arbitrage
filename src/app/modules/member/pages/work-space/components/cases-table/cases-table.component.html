@@ -1,3 +1,7 @@
+<mat-progress-bar
+  *ngIf="tableProgressBar"
+  mode="indeterminate"
+></mat-progress-bar>
 <table *ngIf="dataSource" mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="caseId">
     <th mat-header-cell *matHeaderCellDef>N</th>
@@ -28,14 +32,15 @@
       >
         <mat-icon> details </mat-icon>
       </button>
-      <button
+      <!-- DELETE BUTTON -->
+      <!-- <button
         mat-icon-button
         class="redBtn"
         matTooltip="წაშლა"
         (click)="deleteItem(element)"
       >
         <mat-icon> delete </mat-icon>
-      </button>
+      </button> -->
     </td>
   </ng-container>
 
