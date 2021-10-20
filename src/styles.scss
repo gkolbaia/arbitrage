@@ -1,13 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  src: url('/assets/fonts/NotoSansGeorgian/NotoSansGeorgian-CondensedBold.woff2') format('woff2'),
+    url('/assets/fonts/NotoSansGeorgian/NotoSansGeorgian-CondensedBold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  src: url('/assets/fonts/NotoSansGeorgian/NotoSansGeorgian-Condensed.woff2') format('woff2'),
+    url('/assets/fonts/NotoSansGeorgian/NotoSansGeorgian-Condensed.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body {
   height: 100%;
 }
+* {
+  font-family: "Noto Sans Georgian";
+}
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #fafafa;
 }
 
