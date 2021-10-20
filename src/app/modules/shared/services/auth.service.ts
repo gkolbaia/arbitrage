@@ -77,7 +77,7 @@ export class AuthService {
     }
   }
   get arbitr() {
-    return  this.loggedUser.getValue().roles.includes('ARBITR');
+    return  this.loggedUser?.getValue()?.roles?.includes('ARBITR');
     // const userStr = localStorage.getItem('user');
     // const user = userStr ? JSON.parse(userStr) : null;
     // if (user?.roles?.length) {
@@ -87,7 +87,7 @@ export class AuthService {
     // return false;
   }
   get president() {
-    return  this.loggedUser.getValue().roles.includes('PRESIDENT');
+    return  this.loggedUser?.getValue()?.roles?.includes('PRESIDENT');
     // const userStr = localStorage.getItem('user');
     // const user = userStr ? JSON.parse(userStr) : null;
     // if (user?.roles?.length) {
@@ -97,7 +97,7 @@ export class AuthService {
     // return false;
   }
   get superAdmin(): boolean {
-    return  this.loggedUser.getValue().roles.includes('SUPERADMIN');
+    return  this.loggedUser?.getValue()?.roles?.includes('SUPERADMIN');
     // const userStr = localStorage.getItem('user');
     // const user = userStr ? JSON.parse(userStr) : null;
     // if (user?.roles?.length) {

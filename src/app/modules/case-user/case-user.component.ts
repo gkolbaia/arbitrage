@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CaseService } from '../guest/services/case.service';
+import { AuthService } from '../shared/services/auth.service';
 import { LoadingService } from '../shared/services/loading.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class CaseUserComponent implements OnInit {
   constructor(
     private _router: Router,
     private caseService: CaseService,
-    private _loadingService: LoadingService
+    private _loadingService: LoadingService,
+    private _authService: AuthService
   ) {
     this.loadData();
   }
@@ -22,6 +24,7 @@ export class CaseUserComponent implements OnInit {
     localStorage.removeItem('access-token');
     // localStorage.removeItem('user');
     this._router.navigate(['/guest/auth']);
+    this._authService.setLoggedUser(null);
   }
   loadData() {
     this._loadingService.loadingOn();

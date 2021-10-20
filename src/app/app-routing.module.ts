@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ForbiddenComponent } from './modules/shared/components/forbidden/forbidden.component';
+import { NotFoundPageComponent } from './modules/shared/components/not-found-page/not-found-page.component';
 import { AuthGuard } from './modules/shared/guards/auth.guard';
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
     redirectTo: '/guest/case-registration',
     pathMatch: 'full',
   },
+  { path: '**', component: NotFoundPageComponent },
 ];
 
 @NgModule({

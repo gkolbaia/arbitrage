@@ -16,12 +16,13 @@ export class MemberComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.navigation();
+    this.navigation();
   }
   logOut() {
     localStorage.removeItem('access-token');
     // localStorage.removeItem('user');
     this._router.navigate(['/guest/auth']);
+    this._authService.setLoggedUser(null);
   }
   private navigation(): void {
     if (this._authService.arbitr || this._authService.president) {

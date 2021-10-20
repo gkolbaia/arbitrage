@@ -10,6 +10,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
 import { FilesTableComponent } from './components/files-table/files-table.component';
 import { CaseDetailsComponent } from './components/case-details/case-details.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 @NgModule({
   declarations: [
     FileUploaderComponent,
@@ -17,6 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ConfirmationDialogComponent,
     FilesTableComponent,
     CaseDetailsComponent,
+    NotFoundPageComponent,
   ],
   imports: [CommonModule, MaterialModule, HttpClientModule, FlexLayoutModule],
   exports: [
