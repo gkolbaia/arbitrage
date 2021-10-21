@@ -1,4 +1,4 @@
-<mat-progress-bar *ngIf="tableProgressBar" mode="indeterminate"></mat-progress-bar>
+<!-- <mat-progress-bar *ngIf="tableProgressBar" mode="indeterminate"></mat-progress-bar> -->
 <table *ngIf="dataSource" mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="caseId">
     <th mat-header-cell *matHeaderCellDef>N</th>
@@ -21,7 +21,8 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element" fxLayoutAlign="end center">
-      <button mat-icon-button class="blueBtn" matTooltip="რედაქტირება" (click)="openEditDialog(element)">
+      <button *ngIf="_authService.superAdmin" mat-icon-button class="blueBtn" matTooltip="რედაქტირება"
+        (click)="openEditDialog(element)">
         <mat-icon> edit </mat-icon>
       </button>
       <button mat-icon-button class="orangeBtn" matTooltip="რედაქტირება" (click)="openDetailsDialog(element)">

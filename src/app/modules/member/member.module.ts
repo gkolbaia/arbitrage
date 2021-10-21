@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { ChangePasswordDialogComponent } from './pages/user-profile/dialogs/change-password-dialog/change-password-dialog.component';
 import { ApproveCaseDialogComponent } from './pages/work-space/components/approve-case-dialog/approve-case-dialog.component';
+import { EditCaseDialogComponent } from './pages/work-space/components/edit-case-dialog/edit-case-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ApproveCaseDialogComponent } from './pages/work-space/components/approv
     UserProfileComponent,
     ChangePasswordDialogComponent,
     ApproveCaseDialogComponent,
+    EditCaseDialogComponent,
   ],
   imports: [
     MemberRoutingModule,

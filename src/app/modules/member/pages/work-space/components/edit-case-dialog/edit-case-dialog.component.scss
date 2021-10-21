@@ -1,0 +1,19 @@
+::ng-deep {
+  .mat-dialog-container {
+    border-radius: 8px !important;
+    padding: 16px !important;
+  }
+}
+
+::ng-deep.mat-dialog-content {
+  margin: 0 !important;
+  padding: 12px !important;
+}
+
+.mat-dialog-actions {
+  margin-bottom: 5px;
+}
+
+.mat-radio-button~.mat-radio-button {
+  margin-left: 16px;
+}

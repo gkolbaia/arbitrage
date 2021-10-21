@@ -4,26 +4,13 @@
       <mat-form-field style="width: 400px" appearance="fill">
         <mat-label>ძიება</mat-label>
         <input [formControl]="searchControl" autocomplete="off" matInput />
-        <button
-          type="submit"
-          matSuffix
-          mat-icon-button
-          aria-label="Clear"
-          (click)="search($event)"
-        >
+        <button type="submit" matSuffix mat-icon-button aria-label="Clear" (click)="search($event)">
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
       <div *ngIf="term" class="ml-15" style="padding-bottom: 1.34375em">
-        <button
-          type="button"
-          title="ძიების გასუფთავება"
-          (click)="clearSearch()"
-          class="ml-15"
-          color="warn"
-          style="border-radius: 30px !important"
-          mat-raised-button
-        >
+        <button type="button" title="ძიების გასუფთავება" (click)="clearSearch()" class="ml-15" color="warn"
+          style="border-radius: 30px !important" mat-raised-button>
           <mat-icon> clear_all</mat-icon>
         </button>
       </div>
@@ -35,46 +22,29 @@
       საქმის დამატება
     </button>
   </div>
-  <mat-progress-bar
-    *ngIf="tableProgressBar"
-    mode="indeterminate"
-  ></mat-progress-bar>
+  <div style="height: 12px;">
+    <mat-progress-bar *ngIf="tableProgressBar" mode="indeterminate"></mat-progress-bar>
+  </div>
   <div class="tab-container">
     <mat-tab-group>
       <mat-tab label="შემოსული">
         <ng-template matTabContent>
-          <app-cases-table
-            (setLoading)="setLoading($event)"
-            status="DRAFT"
-            [term]="term"
-          ></app-cases-table>
+          <app-cases-table (setLoading)="setLoading($event)" status="DRAFT" [term]="term"></app-cases-table>
         </ng-template>
       </mat-tab>
       <mat-tab label="მიმდინარე">
         <ng-template matTabContent>
-          <app-cases-table
-            (setLoading)="setLoading($event)"
-            status="ACTIVE"
-            [term]="term"
-          ></app-cases-table>
+          <app-cases-table (setLoading)="setLoading($event)" status="ACTIVE" [term]="term"></app-cases-table>
         </ng-template>
       </mat-tab>
       <mat-tab label="უარყოფილი">
         <ng-template matTabContent>
-          <app-cases-table
-            (setLoading)="setLoading($event)"
-            status="REJECTED"
-            [term]="term"
-          ></app-cases-table>
+          <app-cases-table (setLoading)="setLoading($event)" status="REJECTED" [term]="term"></app-cases-table>
         </ng-template>
       </mat-tab>
       <mat-tab label="დასრულებული">
         <ng-template matTabContent>
-          <app-cases-table
-            (setLoading)="setLoading($event)"
-            status="FINISHED"
-            [term]="term"
-          ></app-cases-table>
+          <app-cases-table (setLoading)="setLoading($event)" status="FINISHED" [term]="term"></app-cases-table>
         </ng-template>
       </mat-tab>
     </mat-tab-group>

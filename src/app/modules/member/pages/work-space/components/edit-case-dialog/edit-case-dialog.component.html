@@ -1,0 +1,122 @@
+<h2 *ngIf="data" fxLayout="row" fxLayoutAlign="end center" mat-dialog-title>
+  <button (click)="close()" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</h2>
+<form mat-dialog-content>
+  <div class="mt-10 p-20">
+
+    <br /><br />
+    <div *ngIf="data">
+      <form mat-card-content [formGroup]=caseControl>
+        <!-- REPORTER -->
+
+        <div class="mb-20">
+          <!-- TITLE -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>საქმის დასახელება</mat-label>
+            <input formControlName=title type="text" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- DESCRIPTION -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>დანართი</mat-label>
+            <textarea formControlName=description matInput rows="7"></textarea>
+          </mat-form-field>
+          <mat-accordion>
+            <mat-expansion-panel [formGroup]="reporterControl" expanded>
+              <mat-expansion-panel-header>
+                <mat-panel-title> მოსარჩელე </mat-panel-title>
+              </mat-expansion-panel-header>
+              <!-- ORGANISATION ID -->
+              <mat-form-field *ngIf="data?.reporter.type === 'company'" class="w-100" appearance="outline">
+                <mat-label>ორგანიზაციის ნომერი</mat-label>
+                <input formControlName=organisationId type="text" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- ORGANISATION NAME -->
+              <mat-form-field *ngIf="data?.reporter.type === 'company'" class="w-100" appearance="outline">
+                <mat-label>ორგანიზაციის სახელი</mat-label>
+                <input formControlName=organisationName type="text" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- FIRSTNAME  -->
+              <mat-form-field *ngIf="data?.reporter.type === 'person'" class="w-100" appearance="outline">
+                <mat-label>სახელი</mat-label>
+                <input formControlName=firstName type="text" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- LASTNAME -->
+              <mat-form-field *ngIf="data?.reporter.type === 'person'" class="w-100" appearance="outline">
+                <mat-label>გვარი</mat-label>
+                <input formControlName=lastName type="text" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- PID -->
+              <mat-form-field *ngIf="data?.reporter.type === 'person'" class="w-100" appearance="outline">
+                <mat-label>პირადი ნომერი</mat-label>
+                <input formControlName=pid type="number" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- EMAIL -->
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>მეილი</mat-label>
+                <input formControlName=email type="email" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- PHONE -->
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>ტელეფონის ნომერი</mat-label>
+                <input formControlName=phone type="text" matInput autocomplete="off" />
+              </mat-form-field>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <!-- TODO აქ შეიძლება მოსარჩელის ატვირთული ფაილები იყოს საჭირო -->
+        <!-- DEFENDANT -->
+        <div class="mb-20">
+          <mat-accordion>
+            <mat-expansion-panel [formGroup]="reporterControl" expanded>
+              <mat-expansion-panel-header>
+                <mat-panel-title> მოპასუხე </mat-panel-title>
+              </mat-expansion-panel-header>
+              <!-- ORGANISATION ID -->
+              <mat-form-field *ngIf="data?.defendant?.type === 'company'" class="w-100" appearance="outline">
+                <mat-label>ორგანიზაციის ნომერი</mat-label>
+                <input formControlName=organisationId type="text" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- ORGANISATION NAME -->
+              <mat-form-field *ngIf="data?.defendant?.type === 'company'" class="w-100" appearance="outline">
+                <mat-label>ორგანიზაციის სახელი</mat-label>
+                <input formControlName=organisationName type="text" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- FIRSTNAME  -->
+              <mat-form-field *ngIf="data?.defendant?.type === 'person'" class="w-100" appearance="outline">
+                <mat-label>სახელი</mat-label>
+                <input formControlName=firstName type="text" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- LASTNAME -->
+              <mat-form-field *ngIf="data?.defendant?.type === 'person'" class="w-100" appearance="outline">
+                <mat-label>გვარი</mat-label>
+                <input formControlName=firstName type="text" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- PID -->
+              <mat-form-field *ngIf="data?.defendant?.type === 'person'" class="w-100" appearance="outline">
+                <mat-label>პირადი ნომერი</mat-label>
+                <input formControlName=pid type="number" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- EMAIL -->
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>მეილი</mat-label>
+                <input formControlName=email type="email" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- PHONE -->
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>ტელეფონის ნომერი</mat-label>
+                <input formControlName=phone type="text" matInput autocomplete="off" />
+              </mat-form-field>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div mat-card-actions>
+          <button type="button" (click)="editCase()" color="primary" mat-raised-button>
+            რედაქტირება
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</form>

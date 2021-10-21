@@ -51,4 +51,9 @@ export class CaseService {
       .patch(`api/case/status`, { data })
       .pipe(map((res: any) => res.result.data));
   }
+  editCase(data: any, _id: string) {
+    return this._http
+      .put(`api/case/${_id}`, { data })
+      .pipe(map((res: any) => res.result.data));
+  }
 }

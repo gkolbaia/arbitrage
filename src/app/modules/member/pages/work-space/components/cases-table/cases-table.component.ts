@@ -20,6 +20,8 @@ import { CaseStatus } from 'src/app/modules/shared/enums/case-status.enum';
 import { LoadingService } from 'src/app/modules/shared/services/loading.service';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
+import { DefendantFormComponent } from 'src/app/modules/guest/case-registration/components/defendant-form/defendant-form.component';
+import { EditCaseDialogComponent } from '../edit-case-dialog/edit-case-dialog.component';
 
 @Component({
   selector: 'app-cases-table',
@@ -46,7 +48,7 @@ export class CasesTableComponent implements OnInit, OnChanges {
     private _matDialog: MatDialog,
     private _snackBar: MatSnackBar,
     private _caseService: CasesService,
-    private _authService: AuthService
+    public _authService: AuthService
   ) {}
   ngOnInit(): void {
     this.loadData();
@@ -108,6 +110,19 @@ export class CasesTableComponent implements OnInit, OnChanges {
     return ['caseId', 'title', 'actions'];
   }
   openEditDialog(element: any) {
-    console.log(element);
+    const dialogRef = this._matDialog.open(EditCaseDialogComponent, {
+      width: '800px',
+      autoFocus: false,
+      data: element,
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res?.success) {
+        this.loadData();
+        this._snackBar.open('საქმე წარმატებით დარედაქტირდა', 'ok', {
+          duration: 2000,
+          panelClass: 'success-message',
+        });
+      }
+    });
   }
 }

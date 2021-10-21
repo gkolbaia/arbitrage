@@ -19,7 +19,12 @@ export class CaseUserComponent implements OnInit {
     this.loadData();
   }
   case: any;
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this._authService.loggedUser.getValue());
+    if (this._authService.loggedUser.getValue().type !== 'CASE') {
+      this._router.navigate(['admin']);
+    }
+  }
   logOut() {
     localStorage.removeItem('access-token');
     // localStorage.removeItem('user');
