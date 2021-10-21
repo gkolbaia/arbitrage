@@ -1,5 +1,5 @@
 export enum CaseStatus {
-  DRAFT = 'შემოტანილი',
+  DRAFT = 'შემოსული',
   REJECTED = 'უარყოფილი',
   ACTIVE = 'მიმდინარე',
   FINISHED = 'დასრულებული',

@@ -1,13 +1,20 @@
 <h2 *ngIf="data" fxLayout="row" fxLayoutAlign="end center" mat-dialog-title>
-  <button (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>
+  <button (click)="close()" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
 </h2>
 <div mat-dialog-content class="case-user-page-wrapper" *ngIf="case">
   <mat-card>
     <div>
       <div class="case-info">
         <div class="case-info-header">
-          <h4>საქმის შემომტანი პირის პირადი სივრცე</h4>
-          <h4>სტატუსი: {{ CaseStatus[case.status] }}</h4>
+          <h4 *ngIf="!data">საქმის შემომტანი პირის პირადი სივრცე</h4>
+          <h4 *ngIf="data">
+            <b>{{ case.title }}</b>
+          </h4>
+          <h4>
+            სტატუსი: <b>{{ CaseStatus[case.status] }}</b>
+          </h4>
         </div>
 
         <div class="case-info-box">
@@ -21,54 +28,90 @@
               <span>რეგისტრაციის თარიღი:</span>
               <span>{{ case.record.createdAt | date: "dd.MM.yy hh:mm" }}</span>
             </li>
-            <li><span>არბიტრი</span></li>
+            <li><span>არბიტრი</span> {{case?.arbitr?.firstName}} {{case?.arbitr?.lastName}}</li>
           </ul>
-          <div class="vl"></div>
+          <div style="width: 50px;"></div>
           <!-- DEFENDANT -->
           <ul class="right-list">
             <li>
-              <span>მოსარჩელე</span
-              ><span *ngIf="case.reporter.type === 'person'"
-                >{{ case?.reporter?.firstName }}
-                {{ case?.reporter?.lastName }}</span
-              >
-              <span *ngIf="case.reporter.type === 'company'"
-                >{{ case?.reporter?.organisationName }}
+              <span>მოსარჩელე</span><span *ngIf="case.reporter.type === 'person'">{{ case?.reporter?.firstName }}
+                {{ case?.reporter?.lastName }}</span>
+              <span *ngIf="case.reporter.type === 'company'">{{ case?.reporter?.organisationName }}
               </span>
             </li>
             <li>
-              <span>მოპასუხე</span
-              ><span *ngIf="case.reporter.type === 'person'">
+              <span>მოპასუხე</span><span *ngIf="case.reporter.type === 'person'">
                 {{ case?.defendant?.firstName }}
-                {{ case?.defendant?.lastName }}</span
-              >
+                {{ case?.defendant?.lastName }}</span>
               <span *ngIf="case.reporter.type === 'company'">
-                {{ case?.defendant?.organisationName }}</span
-              >
+                {{ case?.defendant?.organisationName }}</span>
             </li>
           </ul>
         </div>
       </div>
     </div>
   </mat-card>
-  <div class="mt-10">
+  <div class="mt-10" style="min-height: 236px;">
     <mat-tab-group mat-align-tabs="start" style="width: 100%">
-      <mat-tab label="წარმოდგენილი ფაილები"
-        ><ng-template matTabContent>
-          <app-files-table [data]="case"></app-files-table> </ng-template
-      ></mat-tab>
-      <mat-tab label="სასამართლო აქტები"
+      <mat-tab label="წარმოდგენილი ფაილები">
+        <ng-template matTabContent>
+          <app-files-table fileTableType="presentedFiles" [data]="case"></app-files-table>
+        </ng-template>>
+      </mat-tab>
+      <mat-tab label="სასამართლო აქტები">
+        <ng-template matTabContent>
+          <app-files-table fileTableType="arbitrageFiles" [data]="case"></app-files-table>
+        </ng-template>
+      </mat-tab>
+      <!-- <mat-tab label="სასამართლო სხდომები"
         ><ng-template matTabContent>sada</ng-template></mat-tab
-      >
-      <mat-tab label="სასამართლო სხდომები"
-        ><ng-template matTabContent>sada</ng-template></mat-tab
-      >
+      > -->
     </mat-tab-group>
   </div>
-  <mat-dialog-actions *ngIf="data" class="mt-10 mb-20">
+  <!-- PRESIDENT ACTIONS -->
+  <mat-dialog-actions *ngIf="data && _authService.president && case.status === 'DRAFT'" class="mt-10 mb-20">
     <button (click)="approveCase()" mat-button class="green-btn">
       Approve
     </button>
     <button (click)="rejectCase()" mat-button color="warn">უარყოფა</button>
+  </mat-dialog-actions>
+  <!-- ARBITR ACTIONS -->
+  <mat-dialog-actions *ngIf="data && _authService.arbitr && case.status === 'ACTIVE'" class="mt-10 mb-20">
+    <mat-card class="w-100">
+
+      <div class="file-uploader mb-20 mt-10 w-100">
+        <mat-card>
+          <div *ngFor="let item of arbitrageFiles.value; let i = index" class="mb-20 mt-10">
+            <app-file-uploader [fileDelete]="true" (fileUploaded)="fileUploaded($event, i)"
+              (deletedFile)="deletedFile($event, i)" [validateFile]="['application/pdf']" name="ფაილის ატვირთვა"
+              [disabled]="arbitrageFiles?.value[i]?.filename" [file]="arbitrageFiles?.value[i]"></app-file-uploader>
+          </div>
+          <button (click)="addFileUploader()" class="green-btn" type="button" mat-raised-button>
+            ფაილის დამატება <mat-icon>add</mat-icon>
+          </button>
+          <div mat-card-actions class="mt-10">
+            <button type="button" (click)="addArbitrageFiles()" color="primary" mat-raised-button>
+              შენახვა
+            </button>
+          </div>
+        </mat-card>
+
+      </div>
+      <div class=" mb-20 mt-10 w-100">
+        <mat-card class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-radio-group color="primary" aria-label="Select State" [formControl]="statusControl">
+            <mat-radio-button value="ACTIVE">მიმდინარე</mat-radio-button>
+            <mat-radio-button value="FINISHED">დასრულებული</mat-radio-button>
+          </mat-radio-group>
+          <div mat-card-actions class="mt-10">
+            <button [disabled]="!statusControl.dirty" type="button" (click)="changeStatus()" color="primary"
+              mat-icon-button>
+              <mat-icon>check</mat-icon>
+            </button>
+          </div>
+        </mat-card>
+      </div>
+
+    </mat-card>
   </mat-dialog-actions>
 </div>

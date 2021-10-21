@@ -41,4 +41,14 @@ export class CaseService {
       .patch(`api/case/bind/user/${userId}/case/${caseId}`, {})
       .pipe(map((res: any) => res.result.data));
   }
+  addArbitrageFiles(data: any) {
+    return this._http
+      .post(`api/case/arbitrage/files`, { data })
+      .pipe(map((res: any) => res.result.data));
+  }
+  changeCaseStatus(data: any) {
+    return this._http
+      .patch(`api/case/status`, { data })
+      .pipe(map((res: any) => res.result.data));
+  }
 }

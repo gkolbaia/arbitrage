@@ -25,9 +25,10 @@ export class MemberComponent implements OnInit {
     this._authService.setLoggedUser(null);
   }
   private navigation(): void {
+    const url = this._router.url;
     if (this._authService.arbitr || this._authService.president) {
       this._router.navigate(['admin/work']);
-    } else if (this._authService.superAdmin) {
+    } else if (this._authService.superAdmin && !url.includes('admin/work')) {
       this._router.navigate(['admin/um']);
     }
   }

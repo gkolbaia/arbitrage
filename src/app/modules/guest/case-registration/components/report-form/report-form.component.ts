@@ -83,7 +83,7 @@ export class ReportFormComponent implements OnInit {
       file.createdAt = new Date();
       this.filesControl.controls[i].setValue(file);
     } else {
-      this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ოკ', {
+      this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ok', {
         duration: 2000,
         panelClass: 'err-message',
       });
@@ -110,7 +110,7 @@ export class ReportFormComponent implements OnInit {
           this._router.navigate([`guest/answer/${res.caseId}`]);
         },
         (err) => {
-          this._snackBar.open('საქმის ატვირთვისას დაფიქსირდა შეცდომა', 'ოკ', {
+          this._snackBar.open('საქმის ატვირთვისას დაფიქსირდა შეცდომა', 'ok', {
             duration: 2000,
             panelClass: 'err-message',
           });
@@ -118,7 +118,7 @@ export class ReportFormComponent implements OnInit {
         }
       );
     } else {
-      this._snackBar.open('გთხოვთ სრულად შეავსოთ ფორმა', 'ოკ', {
+      this._snackBar.open('გთხოვთ სრულად შეავსოთ ფორმა', 'ok', {
         duration: 2000,
         panelClass: 'err-message',
       });

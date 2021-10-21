@@ -19,7 +19,9 @@ const ELEMENT_DATA: any[] = [
   styleUrls: ['./files-table.component.scss'],
 })
 export class FilesTableComponent implements OnInit {
+  @Input() fileTableType?: string;
   @Input() data?: any;
+
   displayedColumns: string[] = ['position', 'name', 'actions'];
   dataSource: any[] = [];
   constructor(
@@ -31,7 +33,14 @@ export class FilesTableComponent implements OnInit {
     this.generateDatasource();
   }
   generateDatasource() {
-    this.dataSource = [...this.data?.defendantFiles, ...this.data?.reportFiles];
+    if (this.fileTableType === 'presentedFiles') {
+      this.dataSource = [
+        ...this.data?.defendantFiles,
+        ...this.data?.reportFiles,
+      ];
+    } else if (this.fileTableType === 'arbitrageFiles') {
+      this.dataSource = this.data.arbitrageFiles;
+    }
   }
   downloadFile(file: any) {
     this._loadingService.loadingOn();

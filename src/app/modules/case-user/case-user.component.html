@@ -1,17 +1,8 @@
-<mat-toolbar
-  color="primary"
-  fxLayout="row"
-  fxLayoutAlign="space-between center"
-  class="nav-paddings"
->
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" class="nav-paddings">
   <span>Arbitrage</span>
   <div>
-    <button
-      mat-icon-button
-      class="nav-buttons"
-      aria-label="Example icon-button with heart icon"
-      [matMenuTriggerFor]="menu"
-    >
+    <button mat-icon-button class="nav-buttons" aria-label="Example icon-button with heart icon"
+      [matMenuTriggerFor]="menu">
       <mat-icon>person</mat-icon>
     </button>
     <mat-menu #menu="matMenu">

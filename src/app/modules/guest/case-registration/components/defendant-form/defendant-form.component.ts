@@ -41,7 +41,7 @@ export class DefendantFormComponent implements OnInit {
         if (res?.result) {
           this.case = res.result;
         } else {
-          this._snackBar.open('მითითებული ნომრით საქმე არ მოიძებნა', 'ოკ', {
+          this._snackBar.open('მითითებული ნომრით საქმე არ მოიძებნა', 'ok', {
             duration: 2000,
             panelClass: 'err-message',
           });
@@ -65,14 +65,14 @@ export class DefendantFormComponent implements OnInit {
         },
         (err) => {
           this._loadingService.loadingOff();
-          this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ოკ', {
+          this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ok', {
             duration: 2000,
             panelClass: 'err-message',
           });
         }
       );
     } else {
-      this._snackBar.open('გთხოვთ ატვირთოთ ფაილი', 'ოკ', {
+      this._snackBar.open('გთხოვთ ატვირთოთ ფაილი', 'ok', {
         duration: 2000,
         panelClass: 'err-message',
       });
@@ -83,7 +83,7 @@ export class DefendantFormComponent implements OnInit {
       file.createdAt = new Date();
       this.defendantFiles.controls[i].setValue(file);
     } else {
-      this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ოკ', {
+      this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ok', {
         duration: 2000,
         panelClass: 'err-message',
       });

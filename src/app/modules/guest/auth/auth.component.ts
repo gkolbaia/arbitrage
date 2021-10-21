@@ -39,14 +39,14 @@ export class AuthComponent implements OnInit {
       },
       (err) => {
         if (err.error.statusCode === 400) {
-          this._snackBar.open('მომხმარებელი ან პაროლი არასწორია', 'ოკ', {
+          this._snackBar.open('მომხმარებელი ან პაროლი არასწორია', 'ok', {
             duration: 2000,
             panelClass: 'err-message',
           });
         } else {
           this._snackBar.open(
             'დაფიქსირდა შეცდომა, გთხოვთ ცადოთ მოგვიანებით',
-            'ოკ',
+            'ok',
             {
               duration: 2000,
               panelClass: 'err-message',

@@ -19,6 +19,7 @@ import { CaseDetailsComponent } from 'src/app/modules/shared/components/case-det
 import { CaseStatus } from 'src/app/modules/shared/enums/case-status.enum';
 import { LoadingService } from 'src/app/modules/shared/services/loading.service';
 import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 
 @Component({
   selector: 'app-cases-table',
@@ -27,7 +28,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class CasesTableComponent implements OnInit, OnChanges {
   tableProgressBar: boolean = false;
-  displayedColumns: string[] = ['caseId', 'title', 'status', 'actions'];
+  // displayedColumns: string[] = ['caseId', 'title', 'status', 'actions'];
   dataSource?: any[];
   @Input() status?: string;
   @Input() term?: string;
@@ -45,21 +46,19 @@ export class CasesTableComponent implements OnInit, OnChanges {
     private _matDialog: MatDialog,
     private _snackBar: MatSnackBar,
     private _caseService: CasesService,
-    private cdRef: ChangeDetectorRef,
-    private _loadingService: LoadingService,
-    private ref: ApplicationRef
+    private _authService: AuthService
   ) {}
   ngOnInit(): void {
     this.loadData();
   }
-  openEditDialog(element: any) {
+  openDetailsDialog(element: any) {
     const dialogRef = this._matDialog.open(CaseDetailsComponent, {
       data: element,
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((res) => {
+      this.loadData();
       if (res?.success && res?.message) {
-        this.loadData();
         this._snackBar.open(res.message, 'ok', {
           duration: 2000,
           panelClass: 'success-message',
@@ -92,5 +91,23 @@ export class CasesTableComponent implements OnInit, OnChanges {
     if (change.term && !change.status) {
       this.loadData();
     }
+  }
+  get displayedColumns(): string[] {
+    if (this.status === 'DRAFT') {
+      return ['caseId', 'title', 'actions'];
+    }
+    if (this.status === 'ACTIVE') {
+      return ['caseId', 'title', 'arbitr', 'actions'];
+    }
+    if (this.status === 'REJECTED') {
+      return ['caseId', 'title', 'actions'];
+    }
+    if (this.status === 'FINISHED') {
+      return ['caseId', 'title', 'arbitr', 'actions'];
+    }
+    return ['caseId', 'title', 'actions'];
+  }
+  openEditDialog(element: any) {
+    console.log(element);
   }
 }

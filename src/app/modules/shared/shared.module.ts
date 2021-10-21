@@ -11,6 +11,7 @@ import { FilesTableComponent } from './components/files-table/files-table.compon
 import { CaseDetailsComponent } from './components/case-details/case-details.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     FileUploaderComponent,
@@ -20,7 +21,13 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
     CaseDetailsComponent,
     NotFoundPageComponent,
   ],
-  imports: [CommonModule, MaterialModule, HttpClientModule, FlexLayoutModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    HttpClientModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+  ],
   exports: [
     MaterialModule,
     FileUploaderComponent,
