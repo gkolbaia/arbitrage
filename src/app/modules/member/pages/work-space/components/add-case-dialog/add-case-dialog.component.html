@@ -1,25 +1,9 @@
 <h2 fxLayout="row" fxLayoutAlign="space-between center" mat-dialog-title>
   თანამშრომლის დამატება
-  <button (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>
+  <button (click)="close()" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
 </h2>
-<form [formGroup]="caseForm">
-  <div mat-dialog-content>
-    <mat-form-field class="w-100" appearance="fill">
-      <mat-label>სახელი</mat-label>
-      <input matInput formControlName="title" />
-    </mat-form-field>
-  </div>
-  <div mat-dialog-actions>
-    <button
-      style="color: white"
-      (click)="save()"
-      mat-raised-button
-      class="green-btn"
-    >
-      შენახვა
-    </button>
-    <button type="button" (click)="close()" mat-raised-button color="warn">
-      გაუქმება
-    </button>
-  </div>
-</form>
+<div mat-dialog-content>
+  <app-report-form (caseCreated)=caseCreated($event) [fromAdmin]="true"></app-report-form>
+</div>

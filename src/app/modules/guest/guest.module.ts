@@ -14,7 +14,14 @@ import { ReportFormComponent } from './case-registration/components/report-form/
 import { DefendantFormComponent } from './case-registration/components/defendant-form/defendant-form.component';
 
 @NgModule({
-  declarations: [GuestComponent, CaseRegistrationComponent, AuthComponent, AnswerSheetComponent, ReportFormComponent, DefendantFormComponent],
+  declarations: [
+    GuestComponent,
+    CaseRegistrationComponent,
+    AuthComponent,
+    AnswerSheetComponent,
+    ReportFormComponent,
+    DefendantFormComponent,
+  ],
   imports: [
     CommonModule,
     GuestRoutingModule,
@@ -22,8 +29,8 @@ import { DefendantFormComponent } from './case-registration/components/defendant
     FlexLayoutModule,
     ReactiveFormsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  exports: [GuestRoutingModule],
+  exports: [GuestRoutingModule, ReportFormComponent],
 })
 export class GuestModule {}

@@ -1,12 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { LoadingService } from 'src/app/modules/shared/services/loading.service';
 import { CasesService } from '../../services/cases.service';
 import { AddCaseDialogComponent } from './components/add-case-dialog/add-case-dialog.component';
+import { CasesTableComponent } from './components/cases-table/cases-table.component';
 
 @Component({
   selector: 'app-work-space',
@@ -17,8 +19,14 @@ export class WorkSpaceComponent implements OnInit {
   tableProgressBar: boolean = false;
   term?: string;
   dataSource = [];
+  @ViewChild(CasesTableComponent) caseTabe?: CasesTableComponent;
   searchControl: FormControl = new FormControl();
-  constructor(private _dialog: MatDialog, private cdRef: ChangeDetectorRef) {}
+  constructor(
+    private _dialog: MatDialog,
+    private cdRef: ChangeDetectorRef,
+    private _snackBar: MatSnackBar,
+    private _loadingService: LoadingService
+  ) {}
 
   ngOnInit(): void {}
   addCase() {
@@ -26,6 +34,15 @@ export class WorkSpaceComponent implements OnInit {
       width: '100%',
       autoFocus: false,
       disableClose: true,
+    });
+    dialog.afterClosed().subscribe((res) => {
+      if (res) {
+        this.caseTabe?.loadData()
+        this._snackBar.open('საქმე დამატებულია', 'ok', {
+          duration: 2000,
+          panelClass: 'success-message',
+        });
+      }
     });
   }
   search(e: MouseEvent) {

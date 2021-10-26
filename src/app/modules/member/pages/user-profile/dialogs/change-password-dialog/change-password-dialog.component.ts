@@ -58,6 +58,11 @@ export class ChangePasswordDialogComponent implements OnInit {
             });
           }
         );
+      } else {
+        this._snackbar.open('Password Does Not Match', 'ok', {
+          duration: 10000,
+          panelClass: 'err-message',
+        });
       }
     }
   }

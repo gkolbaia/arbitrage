@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -19,6 +19,8 @@ import { CaseService } from '../../../services/case.service';
 export class ReportFormComponent implements OnInit {
   reportControl: FormGroup;
   @Input() case: any;
+  @Input() fromAdmin?: boolean;
+  @Output() caseCreated = new EventEmitter<any>();
   fileAmout: number[] = [];
   constructor(
     private _fb: FormBuilder,
@@ -107,7 +109,11 @@ export class ReportFormComponent implements OnInit {
         (res) => {
           this._caseService.setCase(res);
           this._loadingService.loadingOff();
-          this._router.navigate([`guest/answer/${res.caseId}`]);
+          if (!this.fromAdmin) {
+            this._router.navigate([`guest/answer/${res.caseId}`]);
+          } else if (this.fromAdmin) {
+            this.caseCreated.emit(true);
+          }
         },
         (err) => {
           this._snackBar.open('საქმის ატვირთვისას დაფიქსირდა შეცდომა', 'ok', {

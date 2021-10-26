@@ -24,4 +24,8 @@ export class AddCaseDialogComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
+  caseCreated(e: boolean) {
+    console.log(e);
+    this.dialogRef.close(e);
+  }
 }

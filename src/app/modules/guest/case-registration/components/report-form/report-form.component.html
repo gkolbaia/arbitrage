@@ -4,15 +4,10 @@
   <div class="mb-20">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>საქმის დასახელება</mat-label>
-      <input
-        [formControl]="titleControl"
-        type="text"
-        matInput
-        autocomplete="off"
-      />
+      <input [formControl]="titleControl" type="text" matInput autocomplete="off" />
     </mat-form-field>
     <mat-form-field appearance="outline" class="w-100">
-      <mat-label>დანართი</mat-label>
+      <mat-label>დამატებითი ინფორმაცია</mat-label>
       <textarea [formControl]="descriptionControl" matInput rows="7"></textarea>
     </mat-form-field>
     <mat-accordion>
@@ -28,94 +23,39 @@
         </div>
         <hr />
         <!-- ORGANISATION ID -->
-        <mat-form-field
-          *ngIf="reporterTypeControl.value === 'company'"
-          class="w-100"
-          appearance="outline"
-        >
+        <mat-form-field *ngIf="reporterTypeControl.value === 'company'" class="w-100" appearance="outline">
           <mat-label>ორგანიზაციის ნომერი</mat-label>
-          <input
-            formControlName="organisationId"
-            type="text"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="organisationId" type="text" matInput autocomplete="off" />
         </mat-form-field>
         <!-- ORGANISATION NAME -->
-        <mat-form-field
-          *ngIf="reporterTypeControl.value === 'company'"
-          class="w-100"
-          appearance="outline"
-        >
+        <mat-form-field *ngIf="reporterTypeControl.value === 'company'" class="w-100" appearance="outline">
           <mat-label>ორგანიზაციის სახელი</mat-label>
-          <input
-            formControlName="organisationName"
-            type="text"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="organisationName" type="text" matInput autocomplete="off" />
         </mat-form-field>
         <!-- FIRSTNAME  -->
-        <mat-form-field
-          *ngIf="reporterTypeControl.value === 'person'"
-          class="w-100"
-          appearance="outline"
-        >
+        <mat-form-field *ngIf="reporterTypeControl.value === 'person'" class="w-100" appearance="outline">
           <mat-label>სახელი</mat-label>
-          <input
-            formControlName="firstName"
-            type="text"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="firstName" type="text" matInput autocomplete="off" />
         </mat-form-field>
         <!-- LASTNAME -->
-        <mat-form-field
-          class="w-100"
-          appearance="outline"
-          *ngIf="reporterTypeControl.value === 'person'"
-        >
+        <mat-form-field class="w-100" appearance="outline" *ngIf="reporterTypeControl.value === 'person'">
           <mat-label>გვარი</mat-label>
-          <input
-            formControlName="lastName"
-            type="text"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="lastName" type="text" matInput autocomplete="off" />
         </mat-form-field>
         <!-- PID -->
-        <mat-form-field
-          class="w-100"
-          appearance="outline"
-          *ngIf="reporterTypeControl.value === 'person'"
-        >
+        <mat-form-field class="w-100" appearance="outline" *ngIf="reporterTypeControl.value === 'person'">
           <mat-label>პირადი ნომერი</mat-label>
-          <input
-            formControlName="pid"
-            type="number"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="pid" type="number" matInput autocomplete="off" />
         </mat-form-field>
         <!-- EMAIL -->
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>მეილი</mat-label>
-          <input
-            formControlName="email"
-            type="email"
-            matInput
-            autocomplete="off"
-          />
+          <mat-label>ელექტრონული ფოსტა</mat-label>
+          <input formControlName="email" type="email" matInput autocomplete="off" />
         </mat-form-field>
         <!-- PHONE -->
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>ტელეფონის ნომერი</mat-label>
-          <input
-            formControlName="phone"
-            type="text"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="phone" type="text" matInput autocomplete="off" />
         </mat-form-field>
       </mat-expansion-panel>
     </mat-accordion>
@@ -135,120 +75,51 @@
         </div>
         <hr />
         <!-- ORGANISATION ID -->
-        <mat-form-field
-          *ngIf="defendantTypeControl.value === 'company'"
-          class="w-100"
-          appearance="outline"
-        >
+        <mat-form-field *ngIf="defendantTypeControl.value === 'company'" class="w-100" appearance="outline">
           <mat-label>ორგანიზაციის ნომერი</mat-label>
-          <input
-            formControlName="organisationId"
-            type="text"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="organisationId" type="text" matInput autocomplete="off" />
         </mat-form-field>
         <!-- ORGANISATION NAME -->
-        <mat-form-field
-          *ngIf="defendantTypeControl.value === 'company'"
-          class="w-100"
-          appearance="outline"
-        >
+        <mat-form-field *ngIf="defendantTypeControl.value === 'company'" class="w-100" appearance="outline">
           <mat-label>ორგანიზაციის სახელი</mat-label>
-          <input
-            formControlName="organisationName"
-            type="text"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="organisationName" type="text" matInput autocomplete="off" />
         </mat-form-field>
         <!-- FIRSTNAME  -->
-        <mat-form-field
-          *ngIf="defendantTypeControl.value === 'person'"
-          class="w-100"
-          appearance="outline"
-        >
+        <mat-form-field *ngIf="defendantTypeControl.value === 'person'" class="w-100" appearance="outline">
           <mat-label>სახელი</mat-label>
-          <input
-            formControlName="firstName"
-            type="text"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="firstName" type="text" matInput autocomplete="off" />
         </mat-form-field>
         <!-- LASTNAME -->
-        <mat-form-field
-          class="w-100"
-          appearance="outline"
-          *ngIf="defendantTypeControl.value === 'person'"
-        >
+        <mat-form-field class="w-100" appearance="outline" *ngIf="defendantTypeControl.value === 'person'">
           <mat-label>გვარი</mat-label>
-          <input
-            formControlName="lastName"
-            type="text"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="lastName" type="text" matInput autocomplete="off" />
         </mat-form-field>
         <!-- PID -->
-        <mat-form-field
-          class="w-100"
-          appearance="outline"
-          *ngIf="defendantTypeControl.value === 'person'"
-        >
+        <mat-form-field class="w-100" appearance="outline" *ngIf="defendantTypeControl.value === 'person'">
           <mat-label>პირადი ნომერი</mat-label>
-          <input
-            formControlName="pid"
-            type="number"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="pid" type="number" matInput autocomplete="off" />
         </mat-form-field>
         <!-- EMAIL -->
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>მეილი</mat-label>
-          <input
-            formControlName="email"
-            type="email"
-            matInput
-            autocomplete="off"
-          />
+          <mat-label>ელექტრონული ფოსტა</mat-label>
+          <input formControlName="email" type="email" matInput autocomplete="off" />
         </mat-form-field>
         <!-- PHONE -->
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>ტელეფონის ნომერი</mat-label>
-          <input
-            formControlName="phone"
-            type="text"
-            matInput
-            autocomplete="off"
-          />
+          <input formControlName="phone" type="text" matInput autocomplete="off" />
         </mat-form-field>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
   <div class="file-uploader mb-20">
     <mat-card>
-      <div
-        *ngFor="let item of filesControl.value; let i = index"
-        class="mb-20 mt-10"
-      >
-        <app-file-uploader
-          [fileDelete]="true"
-          (fileUploaded)="fileUploaded($event, i)"
-          (deletedFile)="deletedFile($event, i)"
-          [validateFile]="['application/pdf']"
-          name="ფაილის ატვირთვა"
-          [disabled]="filesControl?.value[i]?.filename"
-          [file]="filesControl?.value[i]"
-        ></app-file-uploader>
+      <div *ngFor="let item of filesControl.value; let i = index" class="mb-20 mt-10">
+        <app-file-uploader [fileDelete]="true" (fileUploaded)="fileUploaded($event, i)"
+          (deletedFile)="deletedFile($event, i)" [validateFile]="['application/pdf']" name="ფაილის ატვირთვა"
+          [disabled]="filesControl?.value[i]?.filename" [file]="filesControl?.value[i]"></app-file-uploader>
       </div>
-      <button
-        (click)="addFileUploader()"
-        class="green-btn"
-        type="button"
-        mat-raised-button
-      >
+      <button (click)="addFileUploader()" class="green-btn" type="button" mat-raised-button>
         ფაილის დამატება <mat-icon>add</mat-icon>
       </button>
     </mat-card>

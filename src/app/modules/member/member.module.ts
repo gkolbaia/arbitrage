@@ -15,6 +15,7 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
 import { ChangePasswordDialogComponent } from './pages/user-profile/dialogs/change-password-dialog/change-password-dialog.component';
 import { ApproveCaseDialogComponent } from './pages/work-space/components/approve-case-dialog/approve-case-dialog.component';
 import { EditCaseDialogComponent } from './pages/work-space/components/edit-case-dialog/edit-case-dialog.component';
+import { GuestModule } from '../guest/guest.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { EditCaseDialogComponent } from './pages/work-space/components/edit-case
     ChangePasswordDialogComponent,
     ApproveCaseDialogComponent,
     EditCaseDialogComponent,
+
   ],
   imports: [
     MemberRoutingModule,
@@ -36,6 +38,7 @@ import { EditCaseDialogComponent } from './pages/work-space/components/edit-case
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    GuestModule
   ],
 })
 export class MemberModule {}

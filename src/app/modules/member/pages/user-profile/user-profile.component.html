@@ -1,16 +1,18 @@
 <div class="profile-card-wrapper">
   <mat-card class="profile-card-wrapper" class="example-card" *ngIf="user">
     <mat-card-header fxLayout="row" fxLayoutAlign=" center">
-      <div mat-card-avatar><mat-icon>person</mat-icon></div>
-      <mat-card-title
-        ><h1>{{ user?.firstName }} {{ user?.lastName }}</h1></mat-card-title
-      >
+      <div mat-card-avatar>
+        <mat-icon>person</mat-icon>
+      </div>
+      <mat-card-title>
+        <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>
+      </mat-card-title>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content class="profile-card-content">
       <h3>მომხმარებლის სახელი: {{ user?.username }}</h3>
       <h3>პირადი მონერი: {{ user?.pid }}</h3>
-      <h3>მეილი: {{ user?.email }}</h3>
+      <h3>ელექტრონული ფოსტა: {{ user?.email }}</h3>
       <h3>თანამდებობა: {{ user?.email }}</h3>
     </mat-card-content>
     <mat-card-actions>

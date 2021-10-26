@@ -63,13 +63,13 @@
           <app-files-table fileTableType="arbitrageFiles" [data]="case"></app-files-table>
         </ng-template>
       </mat-tab>
-      <!-- <mat-tab label="სასამართლო სხდომები"
-        ><ng-template matTabContent>sada</ng-template></mat-tab
-      > -->
+      <mat-tab label="სასამართლო სხდომები">
+        <ng-template matTabContent>sada</ng-template>
+      </mat-tab>
     </mat-tab-group>
   </div>
   <!-- PRESIDENT ACTIONS -->
-  <mat-dialog-actions *ngIf="data && _authService.president && case.status === 'DRAFT'" class="mt-10 mb-20">
+  <mat-dialog-actions *ngIf="data && _authService.president" class=" mt-10 mb-20">
     <button (click)="approveCase()" mat-button class="green-btn">
       Approve
     </button>
