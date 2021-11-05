@@ -5,6 +5,8 @@ import {
   FormControl,
   FormArray,
   Validators,
+  ValidationErrors,
+  AbstractControl,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -17,11 +19,14 @@ import { CaseService } from '../../../services/case.service';
   styleUrls: ['./report-form.component.scss'],
 })
 export class ReportFormComponent implements OnInit {
-  reportControl: FormGroup;
+  reportControl?: FormGroup;
   @Input() case: any;
   @Input() fromAdmin?: boolean;
   @Output() caseCreated = new EventEmitter<any>();
   fileAmout: number[] = [];
+  caseIdControl: FormControl;
+  reportFiles: FormArray;
+  foundCase: any;
   constructor(
     private _fb: FormBuilder,
     private _caseService: CaseService,
@@ -29,37 +34,14 @@ export class ReportFormComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _loadingService: LoadingService
   ) {
-    this.reportControl = _fb.group({
-      title: new FormControl(null, Validators.required),
-      description: new FormControl(null),
-      reporter: _fb.group({
-        type: 'person',
-        firstName: null,
-        lastName: null,
-        pid: null,
-        email: null,
-        phone: null,
-        organisationName: null,
-        organisationId: null,
-      }),
-      defendant: _fb.group({
-        type: 'person',
-        firstName: null,
-        lastName: null,
-        pid: null,
-        email: null,
-        phone: null,
-        organisationName: null,
-        organisationId: null,
-      }),
-      reportFiles: _fb.array([]),
-    });
+    this.reportFiles = _fb.array([]);
+    this.caseIdControl = _fb.control('0000000002', Validators.required);
   }
   get reporterControl(): FormGroup {
-    return this.reportControl.controls.reporter as FormGroup;
+    return this.reportControl?.controls.reporter as FormGroup;
   }
   get defendantControl(): FormGroup {
-    return this.reportControl.controls.defendant as FormGroup;
+    return this.reportControl?.controls.defendant as FormGroup;
   }
   get reporterTypeControl(): FormControl {
     return this.reporterControl.controls.type as FormControl;
@@ -71,10 +53,10 @@ export class ReportFormComponent implements OnInit {
     return this.reportControl?.controls?.reportFiles as FormArray;
   }
   get titleControl(): FormControl {
-    return this.reportControl.controls.title as FormControl;
+    return this.reportControl?.controls.title as FormControl;
   }
   get descriptionControl(): FormControl {
-    return this.reportControl.controls.description as FormControl;
+    return this.reportControl?.controls.description as FormControl;
   }
   ngOnInit(): void {
     // console.log('case', this.case);
@@ -83,7 +65,12 @@ export class ReportFormComponent implements OnInit {
     if (file?.filename) {
       // this.filesControl.push(new FormControl(file));
       file.createdAt = new Date();
-      this.filesControl.controls[i].setValue(file);
+      if (this?.filesControl?.controls) {
+        this.filesControl.controls[i].setValue(file);
+      }
+      if (this.reportFiles.controls) {
+        this.reportFiles.controls[i].setValue(file);
+      }
     } else {
       this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ok', {
         duration: 2000,
@@ -96,7 +83,7 @@ export class ReportFormComponent implements OnInit {
   }
   getFile() {}
   saveCase() {
-    if (this.reportControl.valid) {
+    if (this.reportControl?.valid) {
       this._loadingService.loadingOn();
       if (this.filesControl.value.length) {
         this.filesControl.value.forEach((file: any, i: number) => {
@@ -130,7 +117,115 @@ export class ReportFormComponent implements OnInit {
       });
     }
   }
-  addFileUploader() {
+  addFileUploader(): void {
     this.filesControl.push(new FormControl({}));
+  }
+  validatePersons(control: AbstractControl): ValidationErrors | null {
+    if (control.parent?.value.type === 'person' && !control.value) {
+      return { require: true };
+    }
+    return null;
+  }
+  validateOrganisations(control: AbstractControl): ValidationErrors | null {
+    if (control.parent?.value.type === 'company' && !control.value) {
+      return { require: true };
+    }
+    return null;
+  }
+  findCase(e: MouseEvent) {
+    e.preventDefault();
+    if (this.caseIdControl.valid) {
+      this._caseService.getCase(this.caseIdControl.value).subscribe((res) => {
+        if (res?.result) {
+          this.foundCase = res.result;
+          if (this.foundCase?.reportFiles?.length) {
+            this.foundCase?.reportFiles.forEach((file: any) => {
+              this.reportFiles.push(new FormControl(file));
+            });
+          }
+        } else {
+          this._snackBar.open('მითითებული ნომრით საქმე არ მოიძებნა', 'ok', {
+            duration: 2000,
+            panelClass: 'err-message',
+          });
+        }
+        this.foundCase = res.result;
+      });
+    }
+  }
+  addcaseForm() {
+    if (this.reportControl) return;
+    this.reportControl = this._fb.group({
+      title: new FormControl(null, [Validators.required]),
+      description: new FormControl(null, [Validators.required]),
+      reporter: this._fb.group({
+        type: 'person',
+        firstName: new FormControl(null, [this.validatePersons]),
+        lastName: new FormControl(null, [this.validatePersons]),
+        pid: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(11),
+          Validators.maxLength(11),
+        ]),
+        email: new FormControl(null, Validators.required),
+        phone: new FormControl(null, Validators.required),
+        organisationName: new FormControl(null, [this.validateOrganisations]),
+        organisationId: new FormControl(null, [this.validateOrganisations]),
+        officialAddress: new FormControl(null, Validators.required),
+        actualAddress: new FormControl(null, Validators.required),
+      }),
+      defendant: this._fb.group({
+        type: 'person',
+        firstName: new FormControl(null, [this.validatePersons]),
+        lastName: new FormControl(null, [this.validatePersons]),
+        pid: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(11),
+          Validators.maxLength(11),
+        ]),
+        email: new FormControl(null, Validators.required),
+        phone: new FormControl(null, Validators.required),
+        organisationName: new FormControl(null, [this.validateOrganisations]),
+        organisationId: new FormControl(null, [this.validateOrganisations]),
+        officialAddress: new FormControl(null, Validators.required),
+        actualAddress: new FormControl(null),
+      }),
+      reportFiles: this._fb.array([]),
+    });
+  }
+  attachReportFiles() {
+    if (this.reportFiles.value.length) {
+      this._loadingService.loadingOn();
+      const data = {
+        _id: this.foundCase._id,
+        reportFiles: this.reportFiles.value,
+      };
+      this._caseService.addReportFiles(data).subscribe(
+        (res) => {
+          this._caseService.setCase(res);
+          this._loadingService.loadingOff();
+          this._snackBar.open('ატვირთული ფაილები საქმეს წარმატებით დაემატა', 'ok', {
+            duration: 2000,
+            panelClass: 'success-message',
+          });
+        },
+        (err) => {
+          this._loadingService.loadingOff();
+          this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ok', {
+            duration: 2000,
+            panelClass: 'err-message',
+          });
+        }
+      );
+    } else {
+      this._snackBar.open('გთხოვთ ატვირთოთ ფაილი', 'ok', {
+        duration: 2000,
+        panelClass: 'err-message',
+      });
+    }
+    console.log(this.reportFiles.value);
+  }
+  addReporterFileUploader() {
+    this.reportFiles.push(new FormControl({}));
   }
 }

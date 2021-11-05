@@ -28,6 +28,11 @@ export class CaseService {
       .post(`api/case/defendant/files`, { data })
       .pipe(map((res: any) => res.result.data));
   }
+  addReportFiles(data: { _id: string; reportFiles: any[] }) {
+    return this._http
+      .post(`api/case/report/files`, { data })
+      .pipe(map((res: any) => res.result.data));
+  }
   getCaseForCaseUser() {
     return this._http.get(`api/case/`).pipe(map((res: any) => res.result.data));
   }

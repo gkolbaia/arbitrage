@@ -58,6 +58,16 @@
                 <mat-label>ელექტრონული ფოსტა</mat-label>
                 <input disabled [value]="case?.reporter?.email" type="email" matInput autocomplete="off" />
               </mat-form-field>
+              <!-- OFFICIAL ADDRESS -->
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>ფაქტობრივი მისამართი</mat-label>
+                <input disabled [value]="case?.reporter?.officialAddress" type="email" matInput autocomplete="off" />
+              </mat-form-field>
+              <!-- IN FACT ACTUALADDRESS -->
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>ელექტრონული ფოსტა</mat-label>
+                <input disabled [value]="case?.reporter?.actualAddress" type="email" matInput autocomplete="off" />
+              </mat-form-field>
               <!-- PHONE -->
               <mat-form-field class="w-100" appearance="outline">
                 <mat-label>ტელეფონის ნომერი</mat-label>

@@ -1,4 +1,20 @@
-<form mat-card-content [formGroup]="reportControl">
+<div class="mb-20">
+  <mat-form-field class="w-100" appearance="outline">
+    <mat-label>საქმის ნომერი</mat-label>
+    <input [formControl]="caseIdControl" type="text" matInput autocomplete="off" />
+  </mat-form-field>
+  <div class="mb-20" fxLayout="row" fxLayoutAlign="space-between center">
+    <button type="submit" (click)="findCase($event)" color="primary" mat-raised-button>
+      მოძებნა
+    </button>
+    <button type="submit" (click)="addcaseForm()" class="green-btn" mat-raised-button>
+      ახალი საქმის დამატება <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+
+
+<form *ngIf="reportControl" mat-card-content [formGroup]="reportControl">
   <!-- REPORTER -->
 
   <div class="mb-20">
@@ -52,6 +68,16 @@
           <mat-label>ელექტრონული ფოსტა</mat-label>
           <input formControlName="email" type="email" matInput autocomplete="off" />
         </mat-form-field>
+        <!-- OFFICIAL ADDRESS -->
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>ოფიციალური მისამართი</mat-label>
+          <input formControlName="officialAddress" type="text" matInput autocomplete="off" />
+        </mat-form-field>
+        <!-- ACTUAL ADDRESS -->
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>ფაქტობრივი მისამართი</mat-label>
+          <input formControlName="actualAddress" type="text" matInput autocomplete="off" />
+        </mat-form-field>
         <!-- PHONE -->
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>ტელეფონის ნომერი</mat-label>
@@ -104,6 +130,16 @@
           <mat-label>ელექტრონული ფოსტა</mat-label>
           <input formControlName="email" type="email" matInput autocomplete="off" />
         </mat-form-field>
+        <!-- OFFICIAL ADDRESS -->
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>ოფიციალური მისამართი</mat-label>
+          <input formControlName="officialAddress" type="text" matInput autocomplete="off" />
+        </mat-form-field>
+        <!-- ACTUAL ADDRESS -->
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>ფაქტობრივი მისამართი</mat-label>
+          <input formControlName="actualAddress" type="text" matInput autocomplete="off" />
+        </mat-form-field>
         <!-- PHONE -->
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>ტელეფონის ნომერი</mat-label>
@@ -130,3 +166,136 @@
     </button>
   </div>
 </form>
+<div *ngIf="foundCase">
+  <form mat-card-content>
+    <!-- REPORTER -->
+
+    <div class="mb-20">
+      <!-- TITLE -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>საქმის დასახელება</mat-label>
+        <input disabled [value]="foundCase?.title" type="text" matInput autocomplete="off" />
+      </mat-form-field>
+      <!-- DESCRIPTION -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>დამატებითი ინფორმაცია</mat-label>
+        <textarea disabled [value]="foundCase?.description" matInput rows="7"></textarea>
+      </mat-form-field>
+      <mat-accordion>
+        <mat-expansion-panel expanded>
+          <mat-expansion-panel-header>
+            <mat-panel-title> მოსარჩელე </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!-- ORGANISATION ID -->
+          <mat-form-field *ngIf="foundCase?.reporter.type === 'company'" class="w-100" appearance="outline">
+            <mat-label>ორგანიზაციის ნომერი</mat-label>
+            <input disabled [value]="foundCase?.reporter?.organisationId" type="text" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- ORGANISATION NAME -->
+          <mat-form-field *ngIf="foundCase?.reporter.type === 'company'" class="w-100" appearance="outline">
+            <mat-label>ორგანიზაციის სახელი</mat-label>
+            <input disabled [value]="foundCase?.reporter?.organisationName" type="text" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- FIRSTNAME  -->
+          <mat-form-field *ngIf="foundCase?.reporter.type === 'person'" class="w-100" appearance="outline">
+            <mat-label>სახელი</mat-label>
+            <input disabled [value]="foundCase?.reporter?.firstName" type="text" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- LASTNAME -->
+          <mat-form-field *ngIf="foundCase?.reporter.type === 'person'" class="w-100" appearance="outline">
+            <mat-label>გვარი</mat-label>
+            <input disabled [value]="foundCase?.reporter?.lastName" type="text" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- PID -->
+          <mat-form-field *ngIf="foundCase?.reporter.type === 'person'" class="w-100" appearance="outline">
+            <mat-label>პირადი ნომერი</mat-label>
+            <input disabled [value]="foundCase?.reporter?.pid" type="number" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- EMAIL -->
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>ელექტრონული ფოსტა</mat-label>
+            <input disabled [value]="foundCase?.reporter?.email" type="email" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- OFFICIAL ADDRESS -->
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>ფაქტობრივი მისამართი</mat-label>
+            <input disabled [value]="foundCase?.reporter?.officialAddress" type="email" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- IN FACT ACTUALADDRESS -->
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>ელექტრონული ფოსტა</mat-label>
+            <input disabled [value]="foundCase?.reporter?.actualAddress" type="email" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- PHONE -->
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>ტელეფონის ნომერი</mat-label>
+            <input disabled [value]="foundCase?.reporter?.phone" type="text" matInput autocomplete="off" />
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <!-- TODO აქ შეიძლება მოსარჩელის ატვირთული ფაილები იყოს საჭირო -->
+    <!-- DEFENDANT -->
+    <div class="mb-20">
+      <mat-accordion>
+        <mat-expansion-panel expanded>
+          <mat-expansion-panel-header>
+            <mat-panel-title> მოპასუხე </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!-- ORGANISATION ID -->
+          <mat-form-field *ngIf="foundCase?.defendant?.type === 'company'" class="w-100" appearance="outline">
+            <mat-label>ორგანიზაციის ნომერი</mat-label>
+            <input [value]="foundCase?.defendant?.organisationId" disabled type="text" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- ORGANISATION NAME -->
+          <mat-form-field *ngIf="foundCase?.defendant?.type === 'company'" class="w-100" appearance="outline">
+            <mat-label>ორგანიზაციის სახელი</mat-label>
+            <input [value]="foundCase?.defendant?.organisationName" type="text" disabled matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- FIRSTNAME  -->
+          <mat-form-field *ngIf="foundCase?.defendant?.type === 'person'" class="w-100" appearance="outline">
+            <mat-label>სახელი</mat-label>
+            <input disabled [value]="foundCase?.defendant?.firstName" type="text" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- LASTNAME -->
+          <mat-form-field *ngIf="foundCase?.defendant?.type === 'person'" class="w-100" appearance="outline">
+            <mat-label>გვარი</mat-label>
+            <input disabled [value]="foundCase?.defendant?.lastName" type="text" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- PID -->
+          <mat-form-field *ngIf="foundCase?.defendant?.type === 'person'" class="w-100" appearance="outline">
+            <mat-label>პირადი ნომერი</mat-label>
+            <input disabled [value]="foundCase?.defendant?.pid" type="number" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- EMAIL -->
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>ელექტრონული ფოსტა</mat-label>
+            <input disabled [value]="foundCase?.defendant?.email" type="email" matInput autocomplete="off" />
+          </mat-form-field>
+          <!-- PHONE -->
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>ტელეფონის ნომერი</mat-label>
+            <input disabled [value]="foundCase?.defendant?.phone" type="text" matInput autocomplete="off" />
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="file-uploader mb-20">
+      <mat-card>
+        <div *ngFor="let item of reportFiles.value; let i = index" class="mb-20 mt-10">
+          <app-file-uploader [fileDelete]="true" (fileUploaded)="fileUploaded($event, i)"
+            (deletedFile)="deletedFile($event, i)" [validateFile]="['application/pdf']" name="ფაილის ატვირთვა"
+            [disabled]="reportFiles?.value[i]?.filename" [file]="reportFiles?.value[i]"></app-file-uploader>
+        </div>
+        <button (click)="addReporterFileUploader()" class="green-btn" type="button" mat-raised-button>
+          ფაილის დამატება <mat-icon>add</mat-icon>
+        </button>
+      </mat-card>
+    </div>
+    <div mat-card-actions>
+      <button type="button" (click)="attachReportFiles()" color="primary" mat-raised-button>
+        გაგზავნა
+      </button>
+    </div>
+  </form>
+</div>
