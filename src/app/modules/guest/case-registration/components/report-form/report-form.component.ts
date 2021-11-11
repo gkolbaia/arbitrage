@@ -19,7 +19,7 @@ import { CaseService } from '../../../services/case.service';
   styleUrls: ['./report-form.component.scss'],
 })
 export class ReportFormComponent implements OnInit {
-  reportControl?: FormGroup;
+  reportControl?: FormGroup | null;
   @Input() case: any;
   @Input() fromAdmin?: boolean;
   @Output() caseCreated = new EventEmitter<any>();
@@ -138,6 +138,7 @@ export class ReportFormComponent implements OnInit {
       this._caseService.getCase(this.caseIdControl.value).subscribe((res) => {
         if (res?.result) {
           this.foundCase = res.result;
+          this.reportControl = null;
           if (this.foundCase?.reportFiles?.length) {
             this.foundCase?.reportFiles.forEach((file: any) => {
               this.reportFiles.push(new FormControl(file));
@@ -155,6 +156,7 @@ export class ReportFormComponent implements OnInit {
   }
   addcaseForm() {
     if (this.reportControl) return;
+    this.foundCase = null;
     this.reportControl = this._fb.group({
       title: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
@@ -204,10 +206,14 @@ export class ReportFormComponent implements OnInit {
         (res) => {
           this._caseService.setCase(res);
           this._loadingService.loadingOff();
-          this._snackBar.open('ატვირთული ფაილები საქმეს წარმატებით დაემატა', 'ok', {
-            duration: 2000,
-            panelClass: 'success-message',
-          });
+          this._snackBar.open(
+            'ატვირთული ფაილები საქმეს წარმატებით დაემატა',
+            'ok',
+            {
+              duration: 2000,
+              panelClass: 'success-message',
+            }
+          );
         },
         (err) => {
           this._loadingService.loadingOff();
@@ -223,7 +229,6 @@ export class ReportFormComponent implements OnInit {
         panelClass: 'err-message',
       });
     }
-    console.log(this.reportFiles.value);
   }
   addReporterFileUploader() {
     this.reportFiles.push(new FormControl({}));

@@ -1,13 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
 
-
-@font-face {
-  font-family: 'Noto Sans Georgian';
-  src: url('/assets/fonts/NotoSansGeorgian/NotoSansGeorgian-CondensedBold.woff2') format('woff2'),
-    url('/assets/fonts/NotoSansGeorgian/NotoSansGeorgian-CondensedBold.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: 'Noto Sans Georgian';
+//   src: url('/assets/fonts/NotoSansGeorgian/NotoSansGeorgian-CondensedBold.woff2') format('woff2'),
+//     url('/assets/fonts/NotoSansGeorgian/NotoSansGeorgian-CondensedBold.woff') format('woff');
+//   font-weight: bold;
+//   font-style: normal;
+// }
 
 @font-face {
   font-family: 'Noto Sans Georgian';
@@ -16,14 +16,22 @@
   font-weight: normal;
   font-style: normal;
 }
+$custom-typography: mat-typography-config(
+  $font-family: 'Noto Sans Georgian, sans-serif',
+  $headline: mat-typography-level(12px, 48px, 0),
+  $input: mat-typography-level(12px, 1.125, 400),
+);
+
+@include angular-material-typography($custom-typography);
 
 html,
 body {
   height: 100%;
+  font-feature-settings: 'case' on !important;
 }
-* {
-  font-family: "Noto Sans Georgian";
-}
+// * {
+//   font-family: "Noto Sans Georgian";
+// }
 
 body {
   margin: 0;
@@ -98,4 +106,10 @@ body {
 .message-warn {
   background-color: rgba(0, 0, 0, 0.04);
   color: #f44336;
+}
+
+.arbitage-wrapper {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0px auto;
 }

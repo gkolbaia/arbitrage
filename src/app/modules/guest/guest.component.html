@@ -1,8 +1,11 @@
 <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" class="nav-paddings">
-  <span>Arbitrage</span>
-  <div>
-    <a class="nav-buttons nav-links" routerLinkActive="active" [routerLink]="['auth']">ავტორიზაცია</a>
-    <a class="nav-buttons nav-links" routerLinkActive="active" [routerLink]="['case-registration']">საქმის დამატება</a>
+  <div class="arbitage-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
+    <span>Arbitrage</span>
+    <div>
+      <a class="nav-buttons nav-links" routerLinkActive="active" [routerLink]="['auth']">ავტორიზაცია</a>
+      <a class="nav-buttons nav-links" routerLinkActive="active" [routerLink]="['case-registration']">საქმის
+        დამატება</a>
+    </div>
   </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

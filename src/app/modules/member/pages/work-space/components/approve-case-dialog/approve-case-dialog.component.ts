@@ -28,10 +28,11 @@ export class ApproveCaseDialogComponent implements OnInit {
   ngOnInit(): void {}
   loadArbitrs() {
     this._loadingService.loadingOn();
-    this._userService.getUsers('ARBITR').subscribe(
+    this._userService.getArbitrs().subscribe(
       (res: any) => {
         this._loadingService.loadingOff();
         this.arbitrs = res.result.data;
+        console.log(this.arbitrs)
       },
       (err) => {
         this._loadingService.loadingOff();

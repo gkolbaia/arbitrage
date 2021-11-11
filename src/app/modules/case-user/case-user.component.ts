@@ -20,7 +20,6 @@ export class CaseUserComponent implements OnInit {
   }
   case: any;
   ngOnInit(): void {
-    console.log(this._authService.loggedUser.getValue());
     if (this._authService.loggedUser.getValue().type !== 'CASE') {
       this._router.navigate(['admin']);
     }

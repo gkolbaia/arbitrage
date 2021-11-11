@@ -40,7 +40,6 @@ export class DefendantFormComponent implements OnInit {
       this._caseService.getCase(this.caseIdControl.value).subscribe((res) => {
         if (res?.result) {
           this.case = res.result;
-          console.log(this.case);
           if (this.case?.defendantFiles?.length) {
             this.case?.defendantFiles.forEach((file: any) => {
               this.defendantFiles.push(new FormControl(file));

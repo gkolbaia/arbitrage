@@ -14,6 +14,9 @@ export class UserService {
 
     return this._http.post('api/user/find', { data });
   }
+  getArbitrs() {
+    return this._http.post('api/user/arbitr/find', {});
+  }
   deleteUser(id: string) {
     return this._http.delete(`api/user/${id}`);
   }

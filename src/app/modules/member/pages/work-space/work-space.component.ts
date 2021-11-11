@@ -25,7 +25,8 @@ export class WorkSpaceComponent implements OnInit {
     private _dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
-    private _loadingService: LoadingService
+    private _loadingService: LoadingService,
+    public _authService: AuthService
   ) {}
 
   ngOnInit(): void {}
@@ -37,7 +38,7 @@ export class WorkSpaceComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((res) => {
       if (res) {
-        this.caseTabe?.loadData()
+        this.caseTabe?.loadData();
         this._snackBar.open('საქმე დამატებულია', 'ok', {
           duration: 2000,
           panelClass: 'success-message',

@@ -73,7 +73,7 @@
     <button (click)="approveCase()" mat-button class="green-btn">
       Approve
     </button>
-    <button (click)="rejectCase()" mat-button color="warn">უარყოფა</button>
+    <!-- <button (click)="rejectCase()" mat-button color="warn">უარყოფა</button> -->
   </mat-dialog-actions>
   <!-- ARBITR ACTIONS -->
   <mat-dialog-actions *ngIf="data && _authService.arbitr && case.status === 'ACTIVE'" class="mt-10 mb-20">
@@ -111,6 +111,7 @@
           </div>
         </mat-card>
       </div>
+      <button (click)="rejectCase()" mat-button color="warn">უარყოფა</button>
 
     </mat-card>
   </mat-dialog-actions>

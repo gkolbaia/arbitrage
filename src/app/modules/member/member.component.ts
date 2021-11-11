@@ -26,7 +26,6 @@ export class MemberComponent implements OnInit {
   }
   private navigation(): void {
     const url = this._router.url;
-    console.log(url)
     if (this._authService.arbitr || this._authService.president) {
       this._router.navigate(['admin/work']);
     } else if (this._authService.superAdmin && !url.includes('admin/work') && !url.includes('admin/profile')) {

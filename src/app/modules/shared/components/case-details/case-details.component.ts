@@ -47,27 +47,7 @@ export class CaseDetailsComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-  rejectCase() {
-    const dialogRef = this._matDialog.open(ConfirmationDialogComponent);
-    dialogRef.afterClosed().subscribe((res) => {
-      if (res) {
-        this._caseService.rejectCase(this.case._id).subscribe(
-          (res) => {
-            this._loadingService.loadingOff();
-            this.dialogRef.close({
-              firstName: res?.firstName,
-              lastName: res?.lastName,
-              success: true,
-              message: 'საქმე უარყოფილია',
-            });
-          },
-          (err) => {
-            this._loadingService.loadingOff();
-          }
-        );
-      }
-    });
-  }
+
   approveCase() {
     const dialogRef = this._matDialog.open(ApproveCaseDialogComponent, {
       width: '500px',
@@ -147,7 +127,6 @@ export class CaseDetailsComponent implements OnInit {
       },
       (err) => {
         this._loadingService.loadingOff();
-        console.log(err);
         this._snackBar.open(err.error.message, 'ok', {
           duration: 2000,
           panelClass: 'err-message',
@@ -161,5 +140,30 @@ export class CaseDetailsComponent implements OnInit {
         this.arbitrageFiles.push(new FormControl(file));
       });
     }
+  }
+
+
+
+
+  rejectCase() {
+    const dialogRef = this._matDialog.open(ConfirmationDialogComponent);
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this._caseService.rejectCase(this.case._id).subscribe(
+          (res) => {
+            this._loadingService.loadingOff();
+            this.dialogRef.close({
+              firstName: res?.firstName,
+              lastName: res?.lastName,
+              success: true,
+              message: 'საქმე უარყოფილია',
+            });
+          },
+          (err) => {
+            this._loadingService.loadingOff();
+          }
+        );
+      }
+    });
   }
 }

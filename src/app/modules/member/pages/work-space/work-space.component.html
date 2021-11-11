@@ -1,5 +1,5 @@
-<div class="work-space-wrapper">
-  <div class="search-container">
+<div class="work-space-wrapper arbitage-wrapper">
+  <div class="search-container p-16">
     <form fxLayout="row" fxLayoutAlign=" center">
       <mat-form-field style="width: 400px" appearance="fill">
         <mat-label>ძიება</mat-label>
@@ -16,16 +16,16 @@
       </div>
     </form>
   </div>
-  <div class="add-case-container mb-20">
+  <div *ngIf="_authService.superAdmin" class="add-case-container mb-20 p-16">
     <button (click)="addCase()" class="greenBtn" mat-raised-button>
       <mat-icon>add</mat-icon>
       საქმის დამატება
     </button>
   </div>
-  <div style="height: 12px;">
+  <div style="height: 12px;" class="p-16">
     <mat-progress-bar *ngIf="tableProgressBar" mode="indeterminate"></mat-progress-bar>
   </div>
-  <div class="tab-container">
+  <div class="tab-container ">
     <mat-tab-group>
       <mat-tab label="შემოსული">
         <ng-template matTabContent>

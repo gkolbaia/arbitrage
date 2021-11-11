@@ -21,10 +21,11 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element" fxLayoutAlign="end center">
+      <!-- EDIT CASE
       <button *ngIf="_authService.superAdmin" mat-icon-button class="blueBtn" matTooltip="რედაქტირება"
         (click)="openEditDialog(element)">
         <mat-icon> edit </mat-icon>
-      </button>
+      </button> -->
       <button mat-icon-button class="orangeBtn" matTooltip="რედაქტირება" (click)="openDetailsDialog(element)">
         <mat-icon> details </mat-icon>
       </button>

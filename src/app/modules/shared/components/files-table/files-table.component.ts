@@ -11,7 +11,7 @@ export class FilesTableComponent implements OnInit {
   @Input() fileTableType?: string;
   @Input() data?: any;
 
-  displayedColumns: string[] = ['position', 'name', 'actions'];
+  displayedColumns: string[] = ['position', 'name', 'author', 'actions'];
   dataSource: any[] = [];
   constructor(
     private _fileService: FilesService,
@@ -23,10 +23,25 @@ export class FilesTableComponent implements OnInit {
   }
   generateDatasource() {
     if (this.fileTableType === 'presentedFiles') {
+      if (this.data?.defendantFiles?.length) {
+        this.data.defendantFiles.forEach((file: any) => {
+          file.author = 'მოპასუხე';
+        });
+      }
+      if (this.data?.reportFiles?.length) {
+        this.data.reportFiles.forEach((file: any) => {
+          file.author = 'მოსარჩელე';
+        });
+      }
       this.dataSource = [
         ...this.data?.defendantFiles,
         ...this.data?.reportFiles,
       ];
+      this.dataSource = this.dataSource.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      console.log(this.dataSource);
     } else if (this.fileTableType === 'arbitrageFiles') {
       this.dataSource = this.data.arbitrageFiles;
     }

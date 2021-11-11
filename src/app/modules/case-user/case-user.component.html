@@ -1,15 +1,19 @@
 <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" class="nav-paddings">
-  <span>Arbitrage</span>
-  <div>
-    <button mat-icon-button class="nav-buttons" aria-label="Example icon-button with heart icon"
-      [matMenuTriggerFor]="menu">
-      <mat-icon>person</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button (click)="logOut()" mat-menu-item>
-        <mat-icon>logout</mat-icon>გასვლა
+
+
+  <div class="arbitage-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
+    <span>Arbitrage</span>
+    <div>
+      <button mat-icon-button class="nav-buttons" aria-label="Example icon-button with heart icon"
+        [matMenuTriggerFor]="menu">
+        <mat-icon>person</mat-icon>
       </button>
-    </mat-menu>
+      <mat-menu #menu="matMenu">
+        <button (click)="logOut()" mat-menu-item>
+          <mat-icon>logout</mat-icon>გასვლა
+        </button>
+      </mat-menu>
+    </div>
   </div>
 </mat-toolbar>
 <div style="margin-top: 81px;">
