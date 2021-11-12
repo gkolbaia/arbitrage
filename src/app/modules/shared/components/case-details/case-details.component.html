@@ -70,8 +70,11 @@
   </div>
   <!-- PRESIDENT ACTIONS -->
   <mat-dialog-actions *ngIf="data && _authService.president" class=" mt-10 mb-20">
-    <button (click)="approveCase()" mat-button class="green-btn">
+    <button *ngIf="!case.arbitr?.length" (click)="approveCase()" mat-button class="green-btn">
       Approve
+    </button>
+    <button *ngIf="case.arbitr?.length" (click)="approveCase()" mat-button class="green-btn">
+      არბიტრის შეცვლა
     </button>
     <!-- <button (click)="rejectCase()" mat-button color="warn">უარყოფა</button> -->
   </mat-dialog-actions>

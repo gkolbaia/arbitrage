@@ -37,6 +37,9 @@ export class ReportFormComponent implements OnInit {
     this.reportFiles = _fb.array([]);
     this.caseIdControl = _fb.control('0000000002', Validators.required);
   }
+  ngOnInit(): void {
+    // console.log('case', this.case);
+  }
   get reporterControl(): FormGroup {
     return this.reportControl?.controls.reporter as FormGroup;
   }
@@ -58,9 +61,7 @@ export class ReportFormComponent implements OnInit {
   get descriptionControl(): FormControl {
     return this.reportControl?.controls.description as FormControl;
   }
-  ngOnInit(): void {
-    // console.log('case', this.case);
-  }
+
   fileUploaded(file: any, i: number) {
     if (file?.filename) {
       // this.filesControl.push(new FormControl(file));
@@ -139,6 +140,7 @@ export class ReportFormComponent implements OnInit {
         if (res?.result) {
           this.foundCase = res.result;
           this.reportControl = null;
+          this.reportFiles = new FormArray([]);
           if (this.foundCase?.reportFiles?.length) {
             this.foundCase?.reportFiles.forEach((file: any) => {
               this.reportFiles.push(new FormControl(file));

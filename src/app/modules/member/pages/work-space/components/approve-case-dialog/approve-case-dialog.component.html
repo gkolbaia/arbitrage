@@ -5,17 +5,45 @@
 </h2>
 <div *ngIf="arbitrs">
   <mat-form-field class="w-100" appearance="fill">
-    <mat-label>აირჩიეთ მოსამართლე</mat-label>
-    <mat-select [formControl]="arbitrControl">
+    <mat-label>აირჩიეთ მთავარი არბიტრი</mat-label>
+    <mat-select #mainArbitrSelect [formControl]="mainArbitrControl">
       <mat-option *ngFor="let arbitr of arbitrs" [value]="arbitr">
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <span>{{ arbitr.firstName }} {{ arbitr.lastName }}</span>
-          <span>{{ arbitr.casesCount }}</span>
+          <span *ngIf="mainArbitrSelect.panelOpen">{{ arbitr.casesCount }}</span>
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+
+
+
+
+  <mat-form-field class="w-100" appearance="fill">
+    <mat-label>აირჩიეთ არბიტრი</mat-label>
+    <mat-select #firstArbitrSelect [formControl]="firstArbitrControl">
+      <mat-option *ngFor="let arbitr of arbitrs" [value]="arbitr">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <span>{{ arbitr.firstName }} {{ arbitr.lastName }}</span>
+          <span *ngIf="firstArbitrSelect.panelOpen">{{ arbitr.casesCount }}</span>
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="w-100" appearance="fill">
+    <mat-label>აირჩიეთ არბიტრი</mat-label>
+    <mat-select #secondArbitrSelect [formControl]="secondArbitrControl">
+      <mat-option *ngFor="let arbitr of arbitrs" [value]="arbitr">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <span>{{ arbitr.firstName }} {{ arbitr.lastName }}</span>
+          <span *ngIf="secondArbitrSelect.panelOpen">{{ arbitr.casesCount }}</span>
         </div>
       </mat-option>
     </mat-select>
   </mat-form-field>
 </div>
 <div>
-  <button (click)="selectArbitr()" mat-button class="green-btn">არჩევა</button>
+  <button (click)="selectArbiter()" mat-button class="green-btn">არჩევა</button>
 </div>

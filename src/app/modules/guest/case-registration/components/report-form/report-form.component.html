@@ -282,6 +282,7 @@
     </div>
     <div class="file-uploader mb-20">
       <mat-card>
+        <span mat-card-title>მოსარჩელის დოკუმენტები</span>
         <div *ngFor="let item of reportFiles.value; let i = index" class="mb-20 mt-10">
           <app-file-uploader [fileDelete]="true" (fileUploaded)="fileUploaded($event, i)"
             (deletedFile)="deletedFile($event, i)" [validateFile]="['application/pdf']" name="ფაილის ატვირთვა"

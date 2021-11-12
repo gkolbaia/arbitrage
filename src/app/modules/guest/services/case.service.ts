@@ -41,9 +41,9 @@ export class CaseService {
       .patch(`api/case/reject/${id}`, {})
       .pipe(map((res: any) => res.result.data));
   }
-  bindUserToCase(userId: string, caseId: string) {
+  bindUserToCase(data: { position: string; _id: string }[], caseId: string) {
     return this._http
-      .patch(`api/case/bind/user/${userId}/case/${caseId}`, {})
+      .patch(`api/case/bind/user/case/${caseId}`, { data })
       .pipe(map((res: any) => res.result.data));
   }
   addArbitrageFiles(data: any) {

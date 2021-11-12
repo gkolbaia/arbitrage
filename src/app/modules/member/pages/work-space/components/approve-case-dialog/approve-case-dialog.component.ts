@@ -1,5 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CaseService } from 'src/app/modules/guest/services/case.service';
@@ -13,18 +18,35 @@ import { LoadingService } from 'src/app/modules/shared/services/loading.service'
 })
 export class ApproveCaseDialogComponent implements OnInit {
   arbitrs: any;
-  arbitrControl: FormControl = new FormControl(null, Validators.required);
+  arbitersControl: FormGroup;
   constructor(
     public dialogRef: MatDialogRef<ApproveCaseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _userService: UserService,
     private _loadingService: LoadingService,
     private _caseService: CaseService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _fb: FormBuilder
   ) {
+    this.arbitersControl = this._fb.group(
+      {
+        mainArbitr: new FormControl(),
+        firstArbitr: new FormControl(),
+        secondArbitr: new FormControl(),
+      },
+      Validators.required
+    );
     this.loadArbitrs();
   }
-
+  get mainArbitrControl(): FormControl {
+    return this.arbitersControl.controls.mainArbitr as FormControl;
+  }
+  get firstArbitrControl(): FormControl {
+    return this.arbitersControl.controls.firstArbitr as FormControl;
+  }
+  get secondArbitrControl(): FormControl {
+    return this.arbitersControl.controls.secondArbitr as FormControl;
+  }
   ngOnInit(): void {}
   loadArbitrs() {
     this._loadingService.loadingOn();
@@ -32,7 +54,7 @@ export class ApproveCaseDialogComponent implements OnInit {
       (res: any) => {
         this._loadingService.loadingOff();
         this.arbitrs = res.result.data;
-        console.log(this.arbitrs)
+        this.setArbitrs();
       },
       (err) => {
         this._loadingService.loadingOff();
@@ -42,13 +64,37 @@ export class ApproveCaseDialogComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-  selectArbitr() {
-    if (this.arbitrControl.valid) {
-      this.dialogRef.close(this.arbitrControl.value);
+  selectArbiter() {
+    const data = [];
+    for (const key in this.arbitersControl.value) {
+      if (this.arbitersControl.value[key]) {
+        data.push({ position: key, _id: this.arbitersControl.value[key]._id });
+      }
+    }
+    if (this.arbitersControl.valid) {
+      this.dialogRef.close(data);
     } else {
       this._snackBar.open('გთხოვთ აირჩიოთ არბიტრი', 'ok', {
         duration: 2000,
         panelClass: 'err-message',
+      });
+    }
+  }
+  setArbitrs() {
+    if (this.data?.arbitr?.length) {
+      this.data.arbitr.forEach((element: any, i: number) => {
+        const arbitr = this.arbitrs?.find(
+          (res: any) => res._id === element._id
+        );
+        if (element.position === 'main') {
+          this.mainArbitrControl.setValue(arbitr);
+        } else {
+          if (this.firstArbitrControl?.value) {
+            this.secondArbitrControl.setValue(arbitr);
+          } else {
+            this.firstArbitrControl.setValue(arbitr);
+          }
+        }
       });
     }
   }

@@ -53,11 +53,12 @@ export class CaseDetailsComponent implements OnInit {
       width: '500px',
       autoFocus: false,
       disableClose: true,
+      data: this.case,
     });
     dialogRef.afterClosed().subscribe((res) => {
-      if (res?._id) {
+      if (res?.length) {
         this._loadingService.loadingOn();
-        this._caseService.bindUserToCase(res._id, this.case._id).subscribe(
+        this._caseService.bindUserToCase(res, this.case._id).subscribe(
           (res1) => {
             this._loadingService.loadingOff();
             this.dialogRef.close({
@@ -141,9 +142,6 @@ export class CaseDetailsComponent implements OnInit {
       });
     }
   }
-
-
-
 
   rejectCase() {
     const dialogRef = this._matDialog.open(ConfirmationDialogComponent);

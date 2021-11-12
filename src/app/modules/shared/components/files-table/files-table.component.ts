@@ -41,7 +41,6 @@ export class FilesTableComponent implements OnInit {
         (a, b) =>
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
-      console.log(this.dataSource);
     } else if (this.fileTableType === 'arbitrageFiles') {
       this.dataSource = this.data.arbitrageFiles;
     }
