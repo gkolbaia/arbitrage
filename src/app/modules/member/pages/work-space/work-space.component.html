@@ -27,16 +27,17 @@
   </div>
   <div class="tab-container ">
     <mat-tab-group>
-      <mat-tab label="მიმდინარე">
-        <ng-template matTabContent>
-          <app-cases-table (setLoading)="setLoading($event)" status="ACTIVE" [term]="term"></app-cases-table>
-        </ng-template>
-      </mat-tab>
       <mat-tab label="შემოსული">
         <ng-template matTabContent>
           <app-cases-table (setLoading)="setLoading($event)" status="DRAFT" [term]="term"></app-cases-table>
         </ng-template>
       </mat-tab>
+      <mat-tab label="მიმდინარე">
+        <ng-template matTabContent>
+          <app-cases-table (setLoading)="setLoading($event)" status="ACTIVE" [term]="term"></app-cases-table>
+        </ng-template>
+      </mat-tab>
+
 
       <mat-tab label="უარყოფილი">
         <ng-template matTabContent>

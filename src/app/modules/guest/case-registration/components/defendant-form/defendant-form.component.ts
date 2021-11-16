@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CaseMeeting } from 'src/app/modules/member/interfaces/case-meeting.interface';
 import { LoadingService } from 'src/app/modules/shared/services/loading.service';
 import { CaseService } from '../../../services/case.service';
 
@@ -100,5 +101,16 @@ export class DefendantFormComponent implements OnInit {
   }
   addFileUploader() {
     this.defendantFiles.push(new FormControl({}));
+  }
+  get hideFileUpload() {
+    const mainMeeting = this.case.arbitrageMeetings.find(
+      (meeting: CaseMeeting) => meeting.type === 'main'
+    );
+    if (!mainMeeting) {
+      return true;
+    }
+    const mainMeetingDate = new Date(mainMeeting.date).getTime();
+    const currentDate = new Date().getTime();
+    return currentDate < mainMeetingDate;
   }
 }

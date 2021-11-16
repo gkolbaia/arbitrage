@@ -130,13 +130,14 @@
                 (deletedFile)="deletedFile($event, i)" [validateFile]="['application/pdf']" name="ფაილის ატვირთვა"
                 [disabled]="defendantFiles?.value[i]?.filename" [file]="defendantFiles?.value[i]"></app-file-uploader>
             </div>
-            <button (click)="addFileUploader()" class="green-btn" type="button" mat-raised-button>
+            <button *ngIf="hideFileUpload" (click)="addFileUploader()" class="green-btn" type="button"
+              mat-raised-button>
               ფაილის დამატება <mat-icon>add</mat-icon>
             </button>
           </mat-card>
         </div>
         <div mat-card-actions>
-          <button type="button" (click)="addDefendantFiles()" color="primary" mat-raised-button>
+          <button *ngIf="hideFileUpload" type="button" (click)="addDefendantFiles()" color="primary" mat-raised-button>
             გაგზავნა
           </button>
         </div>

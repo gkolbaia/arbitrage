@@ -12,8 +12,10 @@ import { ApproveCaseDialogComponent } from 'src/app/modules/member/pages/work-sp
 import { CaseStatus } from '../../enums/case-status.enum';
 import { AuthService } from '../../services/auth.service';
 import { LoadingService } from '../../services/loading.service';
-import { CaseMeetingsManagementComponent } from '../case-meetings-management/case-meetings-management.component';
+import { CaseMeetingsManagementComponent } from '../../../member/pages/work-space/components/case-meetings-management/case-meetings-management.component';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { CasesService } from 'src/app/modules/member/services/cases.service';
+import { CaseMeeting } from 'src/app/modules/member/interfaces/case-meeting.interface';
 
 @Component({
   selector: 'app-case-details',
@@ -28,7 +30,7 @@ export class CaseDetailsComponent implements OnInit {
   CaseStatus: any = CaseStatus;
   constructor(
     private _router: Router,
-    private _caseService: CaseService,
+    private _caseService: CasesService,
     private _loadingService: LoadingService,
     @Optional() public dialogRef: MatDialogRef<CaseDetailsComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
@@ -173,5 +175,10 @@ export class CaseDetailsComponent implements OnInit {
         );
       }
     });
+  }
+  sortMeetings(meetings: CaseMeeting[]): CaseMeeting[] {
+    return meetings.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
   }
 }

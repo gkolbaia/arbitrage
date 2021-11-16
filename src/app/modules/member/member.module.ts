@@ -16,6 +16,8 @@ import { ChangePasswordDialogComponent } from './pages/user-profile/dialogs/chan
 import { ApproveCaseDialogComponent } from './pages/work-space/components/approve-case-dialog/approve-case-dialog.component';
 import { EditCaseDialogComponent } from './pages/work-space/components/edit-case-dialog/edit-case-dialog.component';
 import { GuestModule } from '../guest/guest.module';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { CaseMeetingsManagementComponent } from './pages/work-space/components/case-meetings-management/case-meetings-management.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,7 @@ import { GuestModule } from '../guest/guest.module';
     ChangePasswordDialogComponent,
     ApproveCaseDialogComponent,
     EditCaseDialogComponent,
-
+    CaseMeetingsManagementComponent,
   ],
   imports: [
     MemberRoutingModule,
@@ -38,7 +40,8 @@ import { GuestModule } from '../guest/guest.module';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    GuestModule
+    GuestModule,
+    NgxMaterialTimepickerModule,
   ],
 })
 export class MemberModule {}

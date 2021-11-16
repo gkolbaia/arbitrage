@@ -64,7 +64,9 @@
         </ng-template>
       </mat-tab>
       <mat-tab label="სასამართლო სხდომები">
-        <ng-template matTabContent>sada</ng-template>
+        <ng-template matTabContent>
+          <app-case-meetings-table [data]="case"></app-case-meetings-table>
+        </ng-template>
       </mat-tab>
     </mat-tab-group>
   </div>
@@ -101,7 +103,18 @@
       </div>
       <div class="file-uploader mb-20 mt-10 w-100">
         <mat-card>
-          <button (click)="openCaseMeetingsManagement()" mat-raised-button>სხდომების მართვა</button>
+          <mat-card-title>
+            <h2>
+              სასამართლო სხდომები
+            </h2>
+          </mat-card-title>
+          <div class="mb-20" *ngIf="case.arbitrageMeetings">
+            <span *ngFor="let meeting of sortMeetings(case.arbitrageMeetings)">
+              {{meeting.date | date: 'dd/MM/yyyy hh:mm'}} <b> {{meeting.type==='main'?'მთავარი':''}}</b>
+              <hr>
+            </span>
+          </div>
+          <button (click)="openCaseMeetingsManagement()" mat-raised-button>სხდომების დამატება</button>
         </mat-card>
       </div>
       <div class=" mb-20 mt-10 w-100">

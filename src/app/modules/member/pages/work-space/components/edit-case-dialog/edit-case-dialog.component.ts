@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CaseService } from 'src/app/modules/guest/services/case.service';
+import { CasesService } from 'src/app/modules/member/services/cases.service';
 import { LoadingService } from 'src/app/modules/shared/services/loading.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class EditCaseDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EditCaseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb: FormBuilder,
-    private _caseService: CaseService,
+    private _caseService: CasesService,
     private _loadingService: LoadingService
   ) {
     this.caseControl = _fb.group({

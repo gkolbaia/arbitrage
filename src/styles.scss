@@ -16,8 +16,8 @@
   font-weight: normal;
   font-style: normal;
 }
-$custom-typography: mat-typography-config(
-  $font-family: 'Noto Sans Georgian, sans-serif',
+
+$custom-typography: mat-typography-config($font-family: 'Noto Sans Georgian, sans-serif',
   $headline: mat-typography-level(12px, 48px, 0),
   $input: mat-typography-level(12px, 1.125, 400),
 );
@@ -27,8 +27,9 @@ $custom-typography: mat-typography-config(
 html,
 body {
   height: 100%;
-  font-feature-settings: 'case' on !important;
+  font-feature-settings: 'case'on !important;
 }
+
 // * {
 //   font-family: "Noto Sans Georgian";
 // }
@@ -83,6 +84,7 @@ body {
 .green-btn {
   background-color: #00d269;
   color: white;
+
   mat-icon {
     color: white;
   }
@@ -112,4 +114,15 @@ body {
   max-width: 1440px;
   width: 100%;
   margin: 0px auto;
+}
+
+// .cdk-overlay-container {
+//   z-index: 9999 !important;
+// }
+.timepicker-overlay {
+  z-index: 10000000 !important;
+}
+
+.timepicker-backdrop-overlay {
+  z-index: 10000000 !important;
 }

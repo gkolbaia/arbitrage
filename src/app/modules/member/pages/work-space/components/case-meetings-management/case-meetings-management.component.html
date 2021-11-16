@@ -1,0 +1,39 @@
+<h2 fxLayout="row" fxLayoutAlign="space-between center" mat-dialog-title>
+  <span>სხდომების მართვა</span>
+  <button (click)="close()" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</h2>
+<div mat-dialog-content>
+  <mat-form-field class="w-100" appearance="fill">
+    <mat-label>სხდომის ტიპი</mat-label>
+    <mat-select #mainArbitrSelect [formControl]="typeControl">
+      <mat-option [disabled]="meeting.en==='main' && disableMainMeeting" *ngFor="let meeting of meetingTypes"
+        [value]="meeting.en">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <span>{{ meeting.ge }}</span>
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <!-- DATEPICKER -->
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input [min]="minDate" [max]="maxDate" [formControl]="dateControl" matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <!-- TIMEPICKER -->
+    <mat-form-field (click)="timepicker.click()" style="cursor: pointer;" class="default-time-example"
+      appearance="fill">
+      <mat-label>Choose Time</mat-label>
+      <input [format]="24" style="cursor: pointer;" #timepicker [formControl]="timeControl" matInput
+        aria-label="default time" [ngxTimepicker]="defaultValue" readonly>
+      <ngx-material-timepicker #defaultValue></ngx-material-timepicker>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="saveMeeting()"> შენახვა</button>
+</div>
