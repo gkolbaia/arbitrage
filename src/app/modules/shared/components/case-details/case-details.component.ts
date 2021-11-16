@@ -12,6 +12,7 @@ import { ApproveCaseDialogComponent } from 'src/app/modules/member/pages/work-sp
 import { CaseStatus } from '../../enums/case-status.enum';
 import { AuthService } from '../../services/auth.service';
 import { LoadingService } from '../../services/loading.service';
+import { CaseMeetingsManagementComponent } from '../case-meetings-management/case-meetings-management.component';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -74,6 +75,15 @@ export class CaseDetailsComponent implements OnInit {
         );
       }
     });
+  }
+  openCaseMeetingsManagement() {
+    const dialogRef = this._matDialog.open(CaseMeetingsManagementComponent, {
+      width: '500px',
+      autoFocus: false,
+      disableClose: true,
+      data: this.case,
+    });
+    dialogRef.afterClosed().subscribe((res) => {});
   }
   fileUploaded(file: any, i: number) {
     if (file?.filename) {
