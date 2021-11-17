@@ -70,17 +70,47 @@ export class UmComponent implements OnInit {
   }
   save() {
     if (this.userForm?.valid) {
-      this._userService
-        .registrateUser(this.userForm?.value)
-        .subscribe((res) => {
-          this.userForm = null;
+      if (!this.userForm?.value?._id) {
+        this.createUser();
+      } else if (this.userForm?.value?._id) {
+        this.editUser();
+      }
+    }
+  }
+  createUser() {
+    this._loadingService.loadingOn();
+    this._userService.registrateUser(this.userForm?.value).subscribe(
+      (res) => {
+        this._loadingService.loadingOff();
+        this.userForm = null;
+        this.loadData();
+        this._snackBar.open('თანამშრომელი დამატებულია', 'ok', {
+          duration: 2000,
+          panelClass: 'success-message',
+        });
+      },
+      (err) => {
+        this._loadingService.loadingOff();
+      }
+    );
+  }
+  editUser() {
+    this._loadingService.loadingOn();
+    this._userService
+      .editUser(this.userForm?.value?._id, this.userForm?.value)
+      .subscribe(
+        (res) => {
+          this._loadingService.loadingOff();
           this.loadData();
-          this._snackBar.open('თანამშრომელი დამატებულია', 'ok', {
+          this._snackBar.open('თანამშრომელი დარედაქტირდა', 'ok', {
             duration: 2000,
             panelClass: 'success-message',
           });
-        });
-    }
+        },
+        (err) => {
+          this._loadingService.loadingOff();
+        }
+      );
   }
   get userRolesControl(): FormArray {
     return this.userForm?.controls.roles as FormArray;
@@ -91,8 +121,8 @@ export class UmComponent implements OnInit {
       firstName: [user?.firstName || '', Validators.required],
       username: [user?.username || '', Validators.required],
       lastName: [user?.lastName || '', Validators.required],
-      pid: [user?.pid || null, Validators.required],
-      roles: this._fb.array([]),
+      pid: [user?.pid || null, [Validators.required]],
+      roles: this._fb.array([], Validators.required),
       type: [user?.type || null],
       userId: [user?.userId || null],
     });

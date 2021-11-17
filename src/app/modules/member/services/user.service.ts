@@ -9,6 +9,9 @@ export class UserService {
   registrateUser(user: any) {
     return this._http.post('api/user', { data: user });
   }
+  editUser(id: string, data: any) {
+    return this._http.put(`api/user/${id}`, { data });
+  }
   getUsers(role?: string) {
     let data = role ? { role } : {};
 
