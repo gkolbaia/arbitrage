@@ -28,7 +28,15 @@
               <span>რეგისტრაციის თარიღი:</span>
               <span>{{ case.record.createdAt | date: "dd.MM.yy hh:mm" }}</span>
             </li>
-            <li><span>არბიტრი</span> {{case?.arbitr?.firstName}} {{case?.arbitr?.lastName}}</li>
+            <li fxLayout="row" fxLayoutAlign="space-between center">
+              <div>არბიტრი</div>
+              <div fxLayout="column" fxLayoutAlign="space-between center">
+                <span [style.fontWeight]='arbitr.position==="main"?"bold":""' *ngFor="let arbitr of case.arbitr">
+                  {{arbitr.firstName}} {{arbitr.lastName}}
+                </span>
+              </div>
+
+            </li>
           </ul>
           <div style="width: 50px;"></div>
           <!-- DEFENDANT -->

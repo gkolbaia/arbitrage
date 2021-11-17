@@ -6,8 +6,8 @@ import {
   HttpInterceptor,
   HttpResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { NEVER, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -43,6 +43,18 @@ export class tokenInterceptor implements HttpInterceptor {
           }
         }
         return event;
+      }),
+      catchError((e: any) => {
+        if (
+          e &&
+          e.status &&
+          e.status === 401 &&
+          this._router.url !== '/guest/case-registration'
+        ) {
+          this._router.navigate(['/guest/auth']);
+          localStorage.removeItem('access-token');
+        }
+        throw new Error(e);
       })
     );
   }
