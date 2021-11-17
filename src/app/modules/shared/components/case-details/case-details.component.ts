@@ -75,6 +75,13 @@ export class CaseDetailsComponent implements OnInit {
             this._loadingService.loadingOff();
           }
         );
+      } else {
+        {
+          this._snackBar.open('გთხოვთ აირჩიოთ არბიტრი', 'ok', {
+            duration: 2000,
+            panelClass: 'err-message',
+          });
+        }
       }
     });
   }

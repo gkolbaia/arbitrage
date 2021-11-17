@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -34,7 +36,7 @@ export class ApproveCaseDialogComponent implements OnInit {
         firstArbitr: new FormControl(),
         secondArbitr: new FormControl(),
       },
-      Validators.required
+      { validators: [this.validateThreeOrOneArbiter] }
     );
     this.loadArbitrs();
   }
@@ -73,8 +75,13 @@ export class ApproveCaseDialogComponent implements OnInit {
     }
     if (this.arbitersControl.valid) {
       this.dialogRef.close(data);
-    } else {
+    } else if (this.arbitersControl?.errors?.require) {
       this._snackBar.open('გთხოვთ აირჩიოთ არბიტრი', 'ok', {
+        duration: 2000,
+        panelClass: 'err-message',
+      });
+    } else if (this.arbitersControl?.errors?.twoArbiters) {
+      this._snackBar.open('ორი არბიტრის არჩევა არ შეიძლება, გთხოვთ აირჩიოთ 1, ან 3 არბიტრი', 'ok', {
         duration: 2000,
         panelClass: 'err-message',
       });
@@ -97,5 +104,19 @@ export class ApproveCaseDialogComponent implements OnInit {
         }
       });
     }
+  }
+  validateThreeOrOneArbiter(control: AbstractControl): ValidationErrors | null {
+    let arbiters = Object.values(control.value);
+    if (arbiters?.length) {
+      arbiters = arbiters.filter((arbiter: any) => arbiter);
+      if (arbiters.length === 1 || arbiters.length === 3) {
+        return null;
+      } else if (arbiters.length === 0) {
+        return { require: true };
+      } else if (arbiters.length === 2) {
+        return { twoArbiters: true };
+      }
+    }
+    return null;
   }
 }

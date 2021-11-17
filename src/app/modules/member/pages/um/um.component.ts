@@ -165,7 +165,7 @@ export class UmComponent implements OnInit {
               'ok',
               {
                 duration: 10000,
-                panelClass: 'message-warn',
+                panelClass: 'success-message',
               }
             );
           },
