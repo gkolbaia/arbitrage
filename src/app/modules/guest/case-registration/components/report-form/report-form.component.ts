@@ -39,7 +39,9 @@ export class ReportFormComponent implements OnInit {
     this.caseIdControl = _fb.control('0000000002', Validators.required);
   }
   ngOnInit(): void {
-    // console.log('case', this.case);
+    if(this.fromAdmin) {
+      this.addcaseForm();
+    }
   }
   get reporterControl(): FormGroup {
     return this.reportControl?.controls.reporter as FormGroup;
@@ -60,7 +62,8 @@ export class ReportFormComponent implements OnInit {
     return this.reportControl?.controls.title as FormControl;
   }
   get descriptionControl(): FormControl {
-    return this.reportControl?.controls.description as FormControl;
+    return (this.reportControl?.controls?.description as FormGroup)?.controls
+      ?.reporter as FormControl;
   }
 
   fileUploaded(file: any, i: number) {
@@ -70,8 +73,10 @@ export class ReportFormComponent implements OnInit {
       if (this?.filesControl?.controls) {
         this.filesControl.controls[i].setValue(file);
       }
-      if (this.reportFiles.controls) {
+      if (this.reportFiles.controls[i]) {
         this.reportFiles.controls[i].setValue(file);
+      } else if (this.reportFiles.controls) {
+        this.reportFiles.controls.push(file);
       }
     } else {
       this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ok', {
@@ -85,6 +90,9 @@ export class ReportFormComponent implements OnInit {
   }
   getFile() {}
   saveCase() {
+    this.deleteExtraFieldsFromReporter();
+    this.deleteExtraFieldsFromDefendant();
+    console.log(this.reportControl);
     if (this.reportControl?.valid) {
       this._loadingService.loadingOn();
       if (this.filesControl.value.length) {
@@ -117,6 +125,26 @@ export class ReportFormComponent implements OnInit {
         duration: 2000,
         panelClass: 'err-message',
       });
+    }
+  }
+  deleteExtraFieldsFromReporter() {
+    if (this.reporterTypeControl.value === 'person') {
+      this.reporterControl.controls.organisationName.setValue(null);
+      this.reporterControl.controls.organisationId.setValue(null);
+    } else {
+      this.reporterControl.controls.firstName.setValue(null);
+      this.reporterControl.controls.lastName.setValue(null);
+      this.reporterControl.controls.pid.setValue(null);
+    }
+  }
+  deleteExtraFieldsFromDefendant() {
+    if (this.defendantTypeControl.value === 'person') {
+      this.defendantControl.controls.organisationName.setValue(null);
+      this.defendantControl.controls.organisationId.setValue(null);
+    } else {
+      this.defendantControl.controls.firstName.setValue(null);
+      this.defendantControl.controls.lastName.setValue(null);
+      this.defendantControl.controls.pid.setValue(null);
     }
   }
   addFileUploader(): void {
@@ -162,13 +190,15 @@ export class ReportFormComponent implements OnInit {
     this.foundCase = null;
     this.reportControl = this._fb.group({
       title: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, [Validators.required]),
+      description: this._fb.group({
+        reporter: new FormControl(null, [Validators.required]),
+      }),
       reporter: this._fb.group({
         type: 'person',
         firstName: new FormControl(null, [this.validatePersons]),
         lastName: new FormControl(null, [this.validatePersons]),
         pid: new FormControl(null, [
-          Validators.required,
+          this.validatePersons,
           Validators.minLength(11),
           Validators.maxLength(11),
         ]),
@@ -184,7 +214,7 @@ export class ReportFormComponent implements OnInit {
         firstName: new FormControl(null, [this.validatePersons]),
         lastName: new FormControl(null, [this.validatePersons]),
         pid: new FormControl(null, [
-          Validators.required,
+          this.validatePersons,
           Validators.minLength(11),
           Validators.maxLength(11),
         ]),
@@ -203,7 +233,9 @@ export class ReportFormComponent implements OnInit {
       this._loadingService.loadingOn();
       const data = {
         _id: this.foundCase._id,
-        reportFiles: this.reportFiles.value,
+        reportFiles: this.reportFiles?.value?.filter(
+          (file: any) => file.filename
+        ),
       };
       this._caseService.addReportFiles(data).subscribe(
         (res) => {

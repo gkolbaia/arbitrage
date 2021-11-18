@@ -18,10 +18,15 @@
             <mat-label>საქმის დასახელება</mat-label>
             <input disabled [value]="case?.title" type="text" matInput autocomplete="off" />
           </mat-form-field>
-          <!-- DESCRIPTION -->
+          <!--REPORTER DESCRIPTION -->
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>დამატებითი ინფორმაცია</mat-label>
-            <textarea disabled [value]="case?.description" matInput rows="7"></textarea>
+            <mat-label>მოსარჩელის მიერ ატვირთული დამატებითი ინფორმაცია</mat-label>
+            <textarea disabled [value]="case?.description.reporter" matInput rows="7"></textarea>
+          </mat-form-field>
+          <!-- DEFENDANT DESCRIPTION -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>მოპასუხის მიერ ატვირთული დამატებითი ინფორმაცია</mat-label>
+            <textarea [formControl]="defendantDescriptionControl" matInput rows="7"></textarea>
           </mat-form-field>
           <mat-accordion>
             <mat-expansion-panel expanded>

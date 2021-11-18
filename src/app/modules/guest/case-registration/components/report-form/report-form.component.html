@@ -1,4 +1,4 @@
-<div class="mb-20">
+<div class="mb-20" *ngIf="!fromAdmin">
   <mat-form-field class="w-100" appearance="outline">
     <mat-label>საქმის ნომერი</mat-label>
     <input [formControl]="caseIdControl" type="text" matInput autocomplete="off" />
@@ -176,10 +176,15 @@
         <mat-label>საქმის დასახელება</mat-label>
         <input disabled [value]="foundCase?.title" type="text" matInput autocomplete="off" />
       </mat-form-field>
-      <!-- DESCRIPTION -->
+      <!-- REPORTER DESCRIPTION -->
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>დამატებითი ინფორმაცია</mat-label>
-        <textarea disabled [value]="foundCase?.description" matInput rows="7"></textarea>
+        <mat-label>მოსარჩელის მიერ ატვირთული დამატებითი ინფორმაცია</mat-label>
+        <textarea disabled [value]="foundCase?.description?.reporter" matInput rows="7"></textarea>
+      </mat-form-field>
+      <!-- DEFENDANT  DESCRIPTION -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>მოფასუხის მიერ ატვირთული დამატებითი ინფორმაცია</mat-label>
+        <textarea disabled [value]="foundCase?.description?.defendant || ''" matInput rows="7"></textarea>
       </mat-form-field>
       <mat-accordion>
         <mat-expansion-panel expanded>

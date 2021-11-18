@@ -17,9 +17,11 @@ import { CaseService } from '../../../services/case.service';
   styleUrls: ['./defendant-form.component.scss'],
 })
 export class DefendantFormComponent implements OnInit {
+  disableDescription: boolean = false;
   case: any;
   caseIdControl: FormControl;
   defendantFiles: FormArray;
+  defendantDescriptionControl: FormControl = new FormControl(null);
   constructor(
     private _fb: FormBuilder,
     private _caseService: CaseService,
@@ -42,6 +44,11 @@ export class DefendantFormComponent implements OnInit {
         if (res?.result) {
           this.case = res.result;
           this.defendantFiles = this._fb.array([]);
+          if (this.case?.description?.defendant) {
+            this.defendantDescriptionControl.setValue(
+              this.case.description.defendant
+            );
+          }
           if (this.case?.defendantFiles?.length) {
             this.case?.defendantFiles.forEach((file: any) => {
               this.defendantFiles.push(new FormControl(file));
@@ -58,11 +65,17 @@ export class DefendantFormComponent implements OnInit {
     }
   }
   addDefendantFiles() {
-    if (this.defendantFiles.value.length) {
+    if (
+      this.defendantFiles.value.length ||
+      this.defendantDescriptionControl.value
+    ) {
       this._loadingService.loadingOn();
       const data = {
         _id: this.case._id,
-        defendantFiles: this.defendantFiles.value,
+        defendantFiles: this.defendantFiles?.value?.filter(
+          (file: any) => file.filename
+        ),
+        description: this.defendantDescriptionControl.value,
       };
       this._caseService.addDefendantFiles(data).subscribe(
         (res) => {
