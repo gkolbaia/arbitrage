@@ -12,7 +12,6 @@ export class CaseMeetingsTableComponent implements OnInit {
   displayedColumns = ['date'];
 
   ngOnInit(): void {
-    console.log(this.data);
     this.dataSource = this.data?.arbitrageMeetings;
     this.dataSource = this.data?.arbitrageMeetings.sort(
       (a: { type: string; date: Date }, b: { type: string; date: Date }) =>

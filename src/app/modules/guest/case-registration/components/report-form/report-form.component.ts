@@ -36,10 +36,10 @@ export class ReportFormComponent implements OnInit {
     private _loadingService: LoadingService
   ) {
     this.reportFiles = _fb.array([]);
-    this.caseIdControl = _fb.control('0000000002', Validators.required);
+    this.caseIdControl = _fb.control('0000000001', Validators.required);
   }
   ngOnInit(): void {
-    if(this.fromAdmin) {
+    if (this.fromAdmin) {
       this.addcaseForm();
     }
   }
@@ -92,7 +92,6 @@ export class ReportFormComponent implements OnInit {
   saveCase() {
     this.deleteExtraFieldsFromReporter();
     this.deleteExtraFieldsFromDefendant();
-    console.log(this.reportControl);
     if (this.reportControl?.valid) {
       this._loadingService.loadingOn();
       if (this.filesControl.value.length) {

@@ -75,13 +75,6 @@ export class CaseDetailsComponent implements OnInit {
             this._loadingService.loadingOff();
           }
         );
-      } else {
-        {
-          this._snackBar.open('გთხოვთ აირჩიოთ არბიტრი', 'ok', {
-            duration: 2000,
-            panelClass: 'err-message',
-          });
-        }
       }
     });
   }
@@ -115,25 +108,35 @@ export class CaseDetailsComponent implements OnInit {
     this._loadingService.loadingOn();
     const data = {
       _id: this.case?._id,
-      arbitrageFiles: this.arbitrageFiles?.value,
+      arbitrageFiles: this.arbitrageFiles?.value.filter(
+        (file: any) => file.filename
+      ),
     };
-    this._caseService.addArbitrageFiles(data).subscribe(
-      (res) => {
-        this._snackBar.open('ფაილი აიტვირთა', 'ok', {
-          duration: 2000,
-          panelClass: 'success-message',
-        });
-        this.case = res;
-        this._loadingService.loadingOff();
-      },
-      (err) => {
-        this._loadingService.loadingOff();
-        this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ok', {
-          duration: 2000,
-          panelClass: 'err-message',
-        });
-      }
-    );
+    if (data.arbitrageFiles.length) {
+      this._caseService.addArbitrageFiles(data).subscribe(
+        (res) => {
+          this._snackBar.open('ფაილი აიტვირთა', 'ok', {
+            duration: 2000,
+            panelClass: 'success-message',
+          });
+          this.case = res;
+          this._loadingService.loadingOff();
+        },
+        (err) => {
+          this._loadingService.loadingOff();
+          this._snackBar.open('ფაილის ატვირთვისას დაფიქსირდა შეცდომა', 'ok', {
+            duration: 2000,
+            panelClass: 'err-message',
+          });
+        }
+      );
+    } else {
+      this._loadingService.loadingOff();
+      this._snackBar.open('გთხოვთ ატვირთოთ ფაილი', 'ok', {
+        duration: 2000,
+        panelClass: 'err-message',
+      });
+    }
   }
   changeStatus() {
     const data = {
